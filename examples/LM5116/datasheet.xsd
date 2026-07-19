@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="https://datasheet.org/schema/v1"
+           targetNamespace="https://datasheet.org/schema/v1"
+           elementFormDefault="qualified">
+
+  <!-- Reusable measured-value type: Minimum/Typical/Maximum with a unit attribute -->
+  <xs:complexType name="MeasuredValue">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="unit" type="xs:string" use="optional"/>
+        <xs:attribute name="expression" type="xs:string" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="Parameter">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Condition" type="xs:string" minOccurs="0"/>
+      <xs:element name="Minimum" type="MeasuredValue" minOccurs="0"/>
+      <xs:element name="Typical" type="MeasuredValue" minOccurs="0"/>
+      <xs:element name="Maximum" type="MeasuredValue" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="symbol" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="Group">
+    <xs:sequence>
+      <xs:element name="Parameter" type="Parameter" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:element name="Datasheet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Metadata">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Manufacturer" type="xs:string"/>
+              <xs:element name="Product" type="xs:string" minOccurs="0"/>
+              <xs:element name="Family" type="xs:string" minOccurs="0"/>
+              <xs:element name="Series" type="xs:string" minOccurs="0"/>
+              <xs:element name="PartNumber" type="xs:string"/>
+              <xs:element name="Revision" type="xs:string" minOccurs="0"/>
+              <xs:element name="PublicationDate" type="xs:date" minOccurs="0"/>
+              <xs:element name="Status" type="xs:string" minOccurs="0"/>
+              <xs:element name="Lifecycle" type="xs:string" minOccurs="0"/>
+              <xs:element name="Language" type="xs:string" minOccurs="0"/>
+              <xs:element name="Copyright" type="xs:string" minOccurs="0"/>
+              <xs:element name="License" type="xs:string" minOccurs="0"/>
+              <xs:element name="DocumentNumber" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Features" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Feature" type="xs:string" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Applications" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Application" type="xs:string" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Description" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Paragraph" type="xs:string" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Package" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" type="xs:string"/>
+              <xs:element name="Pins" type="xs:integer" minOccurs="0"/>
+              <xs:element name="Dimensions" minOccurs="0" type="xs:anyType"/>
+              <xs:element name="ExposedPad" type="xs:boolean" minOccurs="0"/>
+              <xs:element name="ThermalResistance" minOccurs="0" type="xs:anyType"/>
+              <xs:element name="Drawing" minOccurs="0">
+                <xs:complexType>
+                  <xs:attribute name="file" type="xs:string"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="PinDescription" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Pin" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Name" type="xs:string"/>
+                    <xs:element name="Direction">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:enumeration value="Input"/>
+                          <xs:enumeration value="Output"/>
+                          <xs:enumeration value="Bidirectional"/>
+                          <xs:enumeration value="Power"/>
+                          <xs:enumeration value="Ground"/>
+                          <xs:enumeration value="Analog"/>
+                          <xs:enumeration value="Reserved"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="Type" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Description" type="xs:string"/>
+                  </xs:sequence>
+                  <xs:attribute name="number" type="xs:string" use="required"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="AbsoluteMaximumRatings" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Rating" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Name" type="xs:string"/>
+                    <xs:element name="Minimum" type="MeasuredValue" minOccurs="0"/>
+                    <xs:element name="Maximum" type="MeasuredValue" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="note" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="ESDRatings" minOccurs="0" type="xs:anyType"/>
+        <xs:element name="RecommendedOperatingConditions" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Parameter" type="Parameter" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="ElectricalCharacteristics" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Group" type="Group" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Timing" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Group" type="Group" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="BlockDiagram" minOccurs="0" type="xs:anyType"/>
+        <xs:element name="Mechanical" minOccurs="0" type="xs:anyType"/>
+        <xs:element name="ApplicationNotes" minOccurs="0" type="xs:anyType"/>
+        <xs:element name="CrossReferences" minOccurs="0" type="xs:anyType"/>
+
+        <xs:element name="RevisionHistory" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Revision" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Number" type="xs:string"/>
+                    <xs:element name="Date" type="xs:date"/>
+                    <xs:element name="Description" type="xs:string"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:string" use="required"/>
+      <xs:attribute name="schemaVersion" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

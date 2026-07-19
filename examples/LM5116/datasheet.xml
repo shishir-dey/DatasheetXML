@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Datasheet
+    version="1.0"
+    schemaVersion="1.0"
+    xmlns="https://datasheet.org/schema/v1">
+
+    <Metadata>
+        <Manufacturer>Texas Instruments</Manufacturer>
+        <Product>LM5116 Wide Range Synchronous Buck Controller</Product>
+        <Family>LM511x</Family>
+        <Series>LM5116</Series>
+        <PartNumber>LM5116</PartNumber>
+        <Revision>I</Revision>
+        <PublicationDate>2023-11-01</PublicationDate>
+        <Status>Production</Status>
+        <Lifecycle>Active</Lifecycle>
+        <Language>en</Language>
+        <Copyright>Copyright (c) 2023 Texas Instruments Incorporated</Copyright>
+        <License>TI Terms of Sale / TI Terms of Use</License>
+        <DocumentNumber>SNVS499I</DocumentNumber>
+    </Metadata>
+
+    <Features>
+        <Feature>Emulated peak current mode control</Feature>
+        <Feature>Wide operating range up to 100 V</Feature>
+        <Feature>Low IQ shutdown (less than 10 uA)</Feature>
+        <Feature>Drives standard or logic level MOSFETs</Feature>
+        <Feature>Robust 3.5-A peak gate drive</Feature>
+        <Feature>Free-run or synchronous operation to 1 MHz</Feature>
+        <Feature>Optional diode emulation mode</Feature>
+        <Feature>Programmable output from 1.215 V to 80 V</Feature>
+        <Feature>Precision 1.5% voltage reference</Feature>
+        <Feature>Programmable current limit</Feature>
+        <Feature>Programmable soft start</Feature>
+        <Feature>Programmable line undervoltage lockout</Feature>
+        <Feature>Automatic switch to external bias supply</Feature>
+        <Feature>HTSSOP-20 exposed pad</Feature>
+        <Feature>Thermal shutdown</Feature>
+    </Features>
+
+    <Applications>
+        <Application>Automotive infotainment</Application>
+        <Application>Industrial DC-DC motor drivers</Application>
+        <Application>Automotive USB adapters</Application>
+        <Application>Telecom servers</Application>
+    </Applications>
+
+    <Description>
+        <Paragraph>
+            The LM5116 is a synchronous buck controller intended for step-down regulator
+            applications from a high-voltage or widely varying input supply. The control
+            method is based upon current mode control using an emulated current ramp.
+            Current mode control provides inherent line feed-forward, cycle-by-cycle
+            current limiting, and ease-of-loop compensation.
+        </Paragraph>
+        <Paragraph>
+            The operating frequency is programmable from 50 kHz to 1 MHz. The LM5116
+            drives external high-side and low-side NMOS power switches with adaptive
+            dead-time control. A user-selectable diode emulation mode enables
+            discontinuous mode operation for improved efficiency at light load
+            conditions. A low quiescent current shutdown disables the controller and
+            consumes less than 10 uA of total input current.
+        </Paragraph>
+    </Description>
+
+    <Package>
+        <Name>HTSSOP-20 (PWP)</Name>
+        <Pins>20</Pins>
+        <Dimensions unit="mm">
+            <Length>6.5</Length>
+            <Width>6.4</Width>
+        </Dimensions>
+        <ExposedPad>true</ExposedPad>
+        <ThermalResistance>
+            <Parameter symbol="RthJA" unit="C/W">40.6</Parameter>
+            <Parameter symbol="RthJCtop" unit="C/W">20.9</Parameter>
+            <Parameter symbol="RthJB" unit="C/W">17.7</Parameter>
+            <Parameter symbol="PsiJT" unit="C/W">0.5</Parameter>
+            <Parameter symbol="PsiJB" unit="C/W">17.4</Parameter>
+            <Parameter symbol="RthJCbot" unit="C/W">1.7</Parameter>
+        </ThermalResistance>
+        <Drawing file="images/package.png"/>
+    </Package>
+
+    <!-- ==================================================================
+         Pin Description
+         Direction vocabulary mapped from TI Type column:
+           G -> Ground, I -> Input, O -> Output, P -> Power
+         ================================================================== -->
+    <PinDescription>
+        <Pin number="1">
+            <Name>VIN</Name>
+            <Direction>Power</Direction>
+            <Type>Supply</Type>
+            <Description>Chip supply voltage, input voltage monitor, and input to the VCC regulator.</Description>
+        </Pin>
+        <Pin number="2">
+            <Name>UVLO</Name>
+            <Direction>Input</Direction>
+            <Type>Analog</Type>
+            <Description>If the UVLO pin is below 1.215 V, the regulator is in standby mode (VCC regulator running, switching regulator disabled). If the UVLO pin voltage is above 1.215 V, the regulator is operational. An external voltage divider can set an undervoltage shutdown threshold. There is a fixed 5-uA pullup current on this pin when EN is high. UVLO is pulled to ground when a current limit condition exists for 256 clock cycles.</Description>
+        </Pin>
+        <Pin number="3">
+            <Name>RT/SYNC</Name>
+            <Direction>Input</Direction>
+            <Type>Analog</Type>
+            <Description>The internal oscillator is set with a single resistor between this pin and the AGND pin. The recommended frequency range is 50 kHz to 1 MHz. The internal oscillator can be synchronized to an external clock by AC coupling a positive edge onto this node.</Description>
+        </Pin>
+        <Pin number="4">
+            <Name>EN</Name>
+            <Direction>Input</Direction>
+            <Type>Digital</Type>
+            <Description>If the EN pin is below 0.5 V, the regulator is in a low-power state, drawing less than 10 uA from VIN. EN must be pulled above 3.3 V for normal operation. The maximum EN transition time for proper operation is one switching period.</Description>
+        </Pin>
+        <Pin number="5">
+            <Name>RAMP</Name>
+            <Direction>Input</Direction>
+            <Type>Analog</Type>
+            <Description>Ramp control signal. An external capacitor connected between this pin and the AGND pin sets the ramp slope used for current mode control.</Description>
+        </Pin>
+        <Pin number="6">
+            <Name>AGND</Name>
+            <Direction>Ground</Direction>
+            <Type>Ground</Type>
+            <Description>Analog ground. Connect to PGND through the exposed pad ground connection under the LM5116.</Description>
+        </Pin>
+        <Pin number="7">
+            <Name>SS</Name>
+            <Direction>Input</Direction>
+            <Type>Analog</Type>
+            <Description>An external capacitor and an internal 10-uA current source set the soft start time constant for the rise of the error amp reference. The SS pin is held low during VCC less than 4.5 V, UVLO less than 1.215 V, EN input low, or thermal shutdown.</Description>
+        </Pin>
+        <Pin number="8">
+            <Name>FB</Name>
+            <Direction>Input</Direction>
+            <Type>Analog</Type>
+            <Description>Feedback signal from the regulated output. This pin is connected to the inverting input of the internal error amplifier. The regulation threshold is 1.215 V.</Description>
+        </Pin>
+        <Pin number="9">
+            <Name>COMP</Name>
+            <Direction>Output</Direction>
+            <Type>Analog</Type>
+            <Description>Output of the internal error amplifier. The loop compensation network must be connected between this pin and the FB pin.</Description>
+        </Pin>
+        <Pin number="10">
+            <Name>VOUT</Name>
+            <Direction>Input</Direction>
+            <Type>Analog</Type>
+            <Description>Output monitor. Connect directly to the output voltage.</Description>
+        </Pin>
+        <Pin number="11">
+            <Name>DEMB</Name>
+            <Direction>Input</Direction>
+            <Type>Analog</Type>
+            <Description>Low-side MOSFET source voltage monitor for diode emulation. For start-up into a pre-biased load, tie this pin to ground at the CSG connection. For fully synchronous operation, use an external series resistor between DEMB and ground to raise the diode emulation threshold above the low-side SW on-voltage.</Description>
+        </Pin>
+        <Pin number="12">
+            <Name>CS</Name>
+            <Direction>Input</Direction>
+            <Type>Analog</Type>
+            <Description>Current sense amplifier input. Connect to the top of the current sense resistor or the drain of the low-side MOSFET if RDS(ON) current sensing is used.</Description>
+        </Pin>
+        <Pin number="13">
+            <Name>CSG</Name>
+            <Direction>Ground</Direction>
+            <Type>Analog</Type>
+            <Description>Current sense amplifier input. Connect to the bottom of the sense resistor or the source of the low-side MOSFET if RDS(ON) current sensing is used.</Description>
+        </Pin>
+        <Pin number="14">
+            <Name>PGND</Name>
+            <Direction>Ground</Direction>
+            <Type>Ground</Type>
+            <Description>Power ground. Connect to AGND through the exposed pad ground connection under the LM5116.</Description>
+        </Pin>
+        <Pin number="15">
+            <Name>LO</Name>
+            <Direction>Output</Direction>
+            <Type>Gate Drive</Type>
+            <Description>Connect to the gate of the low-side synchronous MOSFET through a short, low inductance path.</Description>
+        </Pin>
+        <Pin number="16">
+            <Name>VCC</Name>
+            <Direction>Power</Direction>
+            <Type>Supply</Type>
+            <Description>Locally decouple to PGND using a low ESR/ESL capacitor located as close to the controller as possible.</Description>
+        </Pin>
+        <Pin number="17">
+            <Name>VCCX</Name>
+            <Direction>Power</Direction>
+            <Type>Supply</Type>
+            <Description>Optional input for an externally supplied VCC. If VCCX greater than 4.5 V, VCCX is internally connected to VCC and the internal VCC regulator is disabled. If VCCX is unused, VCCX must be connected to ground.</Description>
+        </Pin>
+        <Pin number="18">
+            <Name>HB</Name>
+            <Direction>Power</Direction>
+            <Type>Supply</Type>
+            <Description>High-side driver supply for bootstrap gate drive. Connect to the cathode of the bootstrap diode and the positive terminal of the bootstrap capacitor. The bootstrap capacitor supplies current to charge the high-side MOSFET gate and must be placed as close to the controller as possible.</Description>
+        </Pin>
+        <Pin number="19">
+            <Name>HO</Name>
+            <Direction>Output</Direction>
+            <Type>Gate Drive</Type>
+            <Description>Connect to the gate of the high-side synchronous MOSFET through a short, low inductance path.</Description>
+        </Pin>
+        <Pin number="20">
+            <Name>SW</Name>
+            <Direction>Output</Direction>
+            <Type>Power</Type>
+            <Description>Switch node. Connect to the negative terminal of the bootstrap capacitor and the source terminal of the high-side MOSFET.</Description>
+        </Pin>
+        <Pin number="EP">
+            <Name>EP</Name>
+            <Direction>Ground</Direction>
+            <Type>Thermal</Type>
+            <Description>Exposed pad. Solder to ground plane.</Description>
+        </Pin>
+    </PinDescription>
+
+    <!-- ==================================================================
+         Absolute Maximum Ratings
+         ================================================================== -->
+    <AbsoluteMaximumRatings note="Stresses beyond these ratings may cause permanent damage. Functional operation is not implied.">
+        <Rating>
+            <Name>VIN to GND</Name>
+            <Minimum unit="V">-0.3</Minimum>
+            <Maximum unit="V">100</Maximum>
+        </Rating>
+        <Rating>
+            <Name>VCC, VCCX, UVLO to GND</Name>
+            <Minimum unit="V">-0.3</Minimum>
+            <Maximum unit="V">16</Maximum>
+        </Rating>
+        <Rating>
+            <Name>SW, CS to GND</Name>
+            <Minimum unit="V">-3.0</Minimum>
+            <Maximum unit="V">100</Maximum>
+        </Rating>
+        <Rating>
+            <Name>HB to SW</Name>
+            <Minimum unit="V">-0.3</Minimum>
+            <Maximum unit="V">16</Maximum>
+        </Rating>
+        <Rating>
+            <Name>HO to SW</Name>
+            <Minimum unit="V">-0.3</Minimum>
+            <Maximum expression="HB + 0.3" unit="V"/>
+        </Rating>
+        <Rating>
+            <Name>VOUT to GND</Name>
+            <Minimum unit="V">-0.3</Minimum>
+            <Maximum unit="V">100</Maximum>
+        </Rating>
+        <Rating>
+            <Name>CSG to GND</Name>
+            <Minimum unit="V">-1</Minimum>
+            <Maximum unit="V">1</Maximum>
+        </Rating>
+        <Rating>
+            <Name>LO to GND</Name>
+            <Minimum unit="V">-0.3</Minimum>
+            <Maximum expression="VCC + 0.3" unit="V"/>
+        </Rating>
+        <Rating>
+            <Name>SS to GND</Name>
+            <Minimum unit="V">-0.3</Minimum>
+            <Maximum unit="V">7</Maximum>
+        </Rating>
+        <Rating>
+            <Name>FB to GND</Name>
+            <Minimum unit="V">-0.3</Minimum>
+            <Maximum unit="V">7</Maximum>
+        </Rating>
+        <Rating>
+            <Name>DEMB to GND</Name>
+            <Minimum unit="V">-0.3</Minimum>
+            <Maximum expression="VCC" unit="V"/>
+        </Rating>
+        <Rating>
+            <Name>RT to GND</Name>
+            <Minimum unit="V">-0.3</Minimum>
+            <Maximum unit="V">7</Maximum>
+        </Rating>
+        <Rating>
+            <Name>EN to GND</Name>
+            <Minimum unit="V">-0.3</Minimum>
+            <Maximum unit="V">100</Maximum>
+        </Rating>
+        <Rating>
+            <Name>Junction Temperature</Name>
+            <Maximum unit="C">150</Maximum>
+        </Rating>
+        <Rating>
+            <Name>Storage Temperature</Name>
+            <Minimum unit="C">-55</Minimum>
+            <Maximum unit="C">150</Maximum>
+        </Rating>
+    </AbsoluteMaximumRatings>
+
+    <ESDRatings>
+        <Rating method="HBM" standard="ANSI/ESDA/JEDEC JS-001">
+            <Value unit="V">2000</Value>
+            <Note>2 kV rating for all pins except VIN, which is rated for 1.5 kV.</Note>
+        </Rating>
+        <Rating method="CDM" standard="JESD22-C101">
+            <Value unit="V">750</Value>
+        </Rating>
+    </ESDRatings>
+
+    <RecommendedOperatingConditions>
+        <Parameter>
+            <Name>VIN</Name>
+            <Minimum unit="V">6</Minimum>
+            <Maximum unit="V">100</Maximum>
+        </Parameter>
+        <Parameter>
+            <Name>VCC, VCCX</Name>
+            <Minimum unit="V">4.75</Minimum>
+            <Maximum unit="V">15</Maximum>
+        </Parameter>
+        <Parameter>
+            <Name>HB to SW</Name>
+            <Minimum unit="V">4.75</Minimum>
+            <Maximum unit="V">15</Maximum>
+        </Parameter>
+        <Parameter>
+            <Name>DEMB to GND</Name>
+            <Minimum unit="V">-0.3</Minimum>
+            <Maximum unit="V">2</Maximum>
+        </Parameter>
+        <Parameter>
+            <Name>Junction Temperature</Name>
+            <Minimum unit="C">-40</Minimum>
+            <Maximum unit="C">125</Maximum>
+        </Parameter>
+    </RecommendedOperatingConditions>
+
+    <!-- ==================================================================
+         Electrical Characteristics
+         Test conditions unless noted: VIN = 48 V, VCC = 7.4 V, VCCX = 0 V,
+         EN = 5 V, RT = 16 kOhm, no load on LO and HO. TJ = -40C to 125C
+         unless noted "typical at 25C only".
+         ================================================================== -->
+    <ElectricalCharacteristics>
+
+        <Group name="VIN Supply">
+            <Parameter symbol="IBIAS">
+                <Name>VIN Operating Current</Name>
+                <Condition>VCCX = 0 V, VIN = 48 V</Condition>
+                <Typical unit="mA">5</Typical>
+                <Maximum unit="mA">7</Maximum>
+            </Parameter>
+            <Parameter symbol="IBIAS">
+                <Name>VIN Operating Current</Name>
+                <Condition>VCCX = 0 V, VIN = 100 V</Condition>
+                <Typical unit="mA">5.9</Typical>
+                <Maximum unit="mA">8</Maximum>
+            </Parameter>
+            <Parameter symbol="ISTDBY">
+                <Name>VIN Shutdown Current</Name>
+                <Condition>EN = 0 V, VIN = 48 V</Condition>
+                <Typical unit="uA">1</Typical>
+                <Maximum unit="uA">10</Maximum>
+            </Parameter>
+        </Group>
+
+        <Group name="VCC Regulator">
+            <Parameter symbol="VCC(REG)">
+                <Name>VCC Regulation</Name>
+                <Minimum unit="V">7.1</Minimum>
+                <Typical unit="V">7.4</Typical>
+                <Maximum unit="V">7.7</Maximum>
+            </Parameter>
+            <Parameter symbol="VCC(REG)">
+                <Name>VCC Regulation</Name>
+                <Condition>VIN = 6 V</Condition>
+                <Minimum unit="V">5</Minimum>
+                <Typical unit="V">5.9</Typical>
+                <Maximum unit="V">6</Maximum>
+            </Parameter>
+            <Parameter>
+                <Name>VCC Sourcing Current Limit</Name>
+                <Condition>VCC = 0 V</Condition>
+                <Minimum unit="mA">15</Minimum>
+                <Typical unit="mA">26</Typical>
+            </Parameter>
+            <Parameter>
+                <Name>VCCX Switch Threshold</Name>
+                <Condition>VCCX Rising</Condition>
+                <Minimum unit="V">4.3</Minimum>
+                <Typical unit="V">4.5</Typical>
+                <Maximum unit="V">4.7</Maximum>
+            </Parameter>
+            <Parameter>
+                <Name>VCC Undervoltage Threshold</Name>
+                <Condition>VCC Rising</Condition>
+                <Minimum unit="V">4.3</Minimum>
+                <Typical unit="V">4.5</Typical>
+                <Maximum unit="V">4.7</Maximum>
+            </Parameter>
+        </Group>
+
+        <Group name="EN Input">
+            <Parameter symbol="VIL_max">
+                <Name>EN Input Low Threshold</Name>
+                <Maximum unit="V">0.5</Maximum>
+            </Parameter>
+            <Parameter symbol="VIH_min">
+                <Name>EN Input High Threshold</Name>
+                <Minimum unit="V">3.3</Minimum>
+            </Parameter>
+        </Group>
+
+        <Group name="UVLO Thresholds">
+            <Parameter>
+                <Name>UVLO Standby Threshold</Name>
+                <Condition>UVLO Rising</Condition>
+                <Minimum unit="V">1.170</Minimum>
+                <Typical unit="V">1.215</Typical>
+                <Maximum unit="V">1.262</Maximum>
+            </Parameter>
+            <Parameter>
+                <Name>UVLO Pull-up Current Source</Name>
+                <Condition>UVLO = 0 V</Condition>
+                <Typical unit="uA">5.4</Typical>
+            </Parameter>
+        </Group>
+
+        <Group name="Soft-Start">
+            <Parameter>
+                <Name>SS Current Source</Name>
+                <Condition>SS = 0 V</Condition>
+                <Minimum unit="uA">8</Minimum>
+                <Typical unit="uA">11</Typical>
+                <Maximum unit="uA">14</Maximum>
+            </Parameter>
+        </Group>
+
+        <Group name="Error Amplifier">
+            <Parameter symbol="VREF">
+                <Name>FB Reference Voltage</Name>
+                <Condition>Measured at FB pin, FB = COMP</Condition>
+                <Minimum unit="V">1.195</Minimum>
+                <Typical unit="V">1.215</Typical>
+                <Maximum unit="V">1.231</Maximum>
+            </Parameter>
+            <Parameter symbol="AOL">
+                <Name>DC Gain</Name>
+                <Typical unit="dB">80</Typical>
+            </Parameter>
+            <Parameter symbol="fBW">
+                <Name>Unity Gain Bandwidth</Name>
+                <Typical unit="MHz">3</Typical>
+            </Parameter>
+        </Group>
+
+        <Group name="Oscillator">
+            <Parameter symbol="fSW1">
+                <Name>Frequency 1</Name>
+                <Condition>RT = 16 kOhm</Condition>
+                <Minimum unit="kHz">180</Minimum>
+                <Typical unit="kHz">200</Typical>
+                <Maximum unit="kHz">220</Maximum>
+            </Parameter>
+            <Parameter symbol="fSW2">
+                <Name>Frequency 2</Name>
+                <Condition>RT = 5 kOhm</Condition>
+                <Minimum unit="kHz">480</Minimum>
+                <Typical unit="kHz">535</Typical>
+                <Maximum unit="kHz">590</Maximum>
+            </Parameter>
+        </Group>
+
+        <Group name="Current Limit">
+            <Parameter symbol="VCS(TH)">
+                <Name>Cycle-by-cycle Sense Voltage Threshold (CSG - CS)</Name>
+                <Condition>VCCX = 0 V, RAMP = 0 V</Condition>
+                <Minimum unit="mV">94</Minimum>
+                <Typical unit="mV">110</Typical>
+                <Maximum unit="mV">126</Maximum>
+            </Parameter>
+            <Parameter symbol="VCS(THX)">
+                <Name>Cycle-by-cycle Sense Voltage Threshold (CSG - CS)</Name>
+                <Condition>VCCX = 5 V, RAMP = 0 V</Condition>
+                <Minimum unit="mV">105</Minimum>
+                <Typical unit="mV">122</Typical>
+                <Maximum unit="mV">139</Maximum>
+            </Parameter>
+        </Group>
+
+        <Group name="Ramp Generator">
+            <Parameter symbol="IR1">
+                <Name>RAMP Current 1</Name>
+                <Condition>VIN = 60 V, VOUT = 10 V</Condition>
+                <Minimum unit="uA">235</Minimum>
+                <Typical unit="uA">285</Typical>
+                <Maximum unit="uA">335</Maximum>
+            </Parameter>
+            <Parameter symbol="IR2">
+                <Name>RAMP Current 2</Name>
+                <Condition>VIN = 10 V, VOUT = 10 V</Condition>
+                <Minimum unit="uA">21</Minimum>
+                <Typical unit="uA">28</Typical>
+                <Maximum unit="uA">35</Maximum>
+            </Parameter>
+        </Group>
+
+        <Group name="LO Gate Driver">
+            <Parameter symbol="VOLL">
+                <Name>LO Low-state Output Voltage</Name>
+                <Condition>ILO = 100 mA</Condition>
+                <Typical unit="V">0.08</Typical>
+                <Maximum unit="V">0.17</Maximum>
+            </Parameter>
+            <Parameter symbol="IOHL">
+                <Name>Peak LO Source Current</Name>
+                <Condition>VLO = 0 V</Condition>
+                <Typical unit="A">1.8</Typical>
+            </Parameter>
+            <Parameter symbol="IOLL">
+                <Name>Peak LO Sink Current</Name>
+                <Condition>VLO = VCC</Condition>
+                <Typical unit="A">3.5</Typical>
+            </Parameter>
+        </Group>
+
+        <Group name="HO Gate Driver">
+            <Parameter symbol="VOLH">
+                <Name>HO Low-state Output Voltage</Name>
+                <Condition>IHO = 100 mA</Condition>
+                <Typical unit="V">0.17</Typical>
+                <Maximum unit="V">0.27</Maximum>
+            </Parameter>
+            <Parameter symbol="IOHH">
+                <Name>Peak HO Source Current</Name>
+                <Condition>VHO = 0 V</Condition>
+                <Typical unit="A">1</Typical>
+            </Parameter>
+            <Parameter symbol="IOLH">
+                <Name>Peak HO Sink Current</Name>
+                <Condition>VHO = VCC</Condition>
+                <Typical unit="A">2.2</Typical>
+            </Parameter>
+        </Group>
+
+        <Group name="Thermal">
+            <Parameter symbol="TSD">
+                <Name>Thermal Shutdown</Name>
+                <Condition>Rising</Condition>
+                <Typical unit="C">170</Typical>
+            </Parameter>
+            <Parameter>
+                <Name>Thermal Shutdown Hysteresis</Name>
+                <Typical unit="C">15</Typical>
+            </Parameter>
+        </Group>
+
+    </ElectricalCharacteristics>
+
+    <!-- ==================================================================
+         Switching Characteristics
+         ================================================================== -->
+    <Timing>
+        <Group name="PWM Comparators">
+            <Parameter symbol="tHO(OFF)">
+                <Name>Forced HO Off-time</Name>
+                <Minimum unit="ns">320</Minimum>
+                <Typical unit="ns">450</Typical>
+                <Maximum unit="ns">580</Maximum>
+            </Parameter>
+            <Parameter symbol="tON(min)">
+                <Name>Minimum HO On-time</Name>
+                <Condition>VIN = 80 V, CRAMP = 50 pF</Condition>
+                <Typical unit="ns">100</Typical>
+            </Parameter>
+        </Group>
+        <Group name="Current Limit">
+            <Parameter>
+                <Name>Current Limit Fault Timer</Name>
+                <Condition>RT = 16 kOhm (200 kHz), 256 clock cycles</Condition>
+                <Typical unit="ms">1.28</Typical>
+            </Parameter>
+        </Group>
+        <Group name="Gate Drivers">
+            <Parameter>
+                <Name>LO Rise Time</Name>
+                <Condition>C-load = 1000 pF</Condition>
+                <Typical unit="ns">18</Typical>
+            </Parameter>
+            <Parameter>
+                <Name>LO Fall Time</Name>
+                <Condition>C-load = 1000 pF</Condition>
+                <Typical unit="ns">12</Typical>
+            </Parameter>
+            <Parameter>
+                <Name>HO Rise Time</Name>
+                <Condition>C-load = 1000 pF</Condition>
+                <Typical unit="ns">19</Typical>
+            </Parameter>
+            <Parameter>
+                <Name>HO High-side Fall Time</Name>
+                <Condition>C-load = 1000 pF</Condition>
+                <Typical unit="ns">13</Typical>
+            </Parameter>
+        </Group>
+        <Group name="Switching Characteristics">
+            <Parameter>
+                <Name>LO Fall to HO Rise Delay</Name>
+                <Condition>C-load = 0</Condition>
+                <Typical unit="ns">75</Typical>
+            </Parameter>
+            <Parameter>
+                <Name>HO Fall to LO Rise Delay</Name>
+                <Condition>C-load = 0</Condition>
+                <Typical unit="ns">70</Typical>
+            </Parameter>
+        </Group>
+    </Timing>
+
+    <BlockDiagram>
+        <Image>images/blockdiagram.svg</Image>
+        <Caption>LM5116 Functional Block Diagram</Caption>
+    </BlockDiagram>
+
+    <Mechanical>
+        <Drawing file="images/HTSSOP-20-PWP0020A.svg"/>
+        <Caption>PWP Package, 20-Pin HTSSOP Top View</Caption>
+    </Mechanical>
+
+    <!-- ==================================================================
+         Application Information (narrative sections remain supported)
+         ================================================================== -->
+    <ApplicationNotes>
+        <Section title="Overview">
+            <Paragraph>
+                The LM5116 device is a step-down DC-DC controller used to convert a
+                higher DC voltage to a lower DC voltage. Use the design procedure in
+                this section to select external component values, or use the WEBENCH
+                Power Designer software to generate a complete design.
+            </Paragraph>
+        </Section>
+        <Section title="Typical Application: 5-V, 7-A Design Example">
+            <Parameter>
+                <Name>Output voltage</Name>
+                <Typical unit="V">5</Typical>
+            </Parameter>
+            <Parameter>
+                <Name>Input voltage range</Name>
+                <Minimum unit="V">7</Minimum>
+                <Maximum unit="V">60</Maximum>
+            </Parameter>
+            <Parameter>
+                <Name>Maximum load current</Name>
+                <Typical unit="A">7</Typical>
+            </Parameter>
+            <Parameter>
+                <Name>Switching frequency</Name>
+                <Typical unit="kHz">250</Typical>
+            </Parameter>
+            <Paragraph>
+                RT is calculated from RT = (T - 450 ns) / 284 pF, where T = 1 / fSW.
+                For 250 kHz this gives 12.5 kOhm; the nearest standard value of
+                12.4 kOhm was chosen.
+            </Paragraph>
+        </Section>
+        <Section title="Layout Guidelines">
+            <Paragraph>
+                In a buck regulator, the primary switching loop consists of the input
+                capacitor, MOSFETs, and current sense resistor. Minimizing the area of
+                this loop reduces stray inductance and minimizes noise. The input
+                capacitor must be placed as close as possible to the MOSFETs, with the
+                VIN side connected directly to the high-side MOSFET drain. Connect the
+                AGND and PGND pins together through a topside copper area covering the
+                entire underside of the device, with several vias to the ground plane.
+            </Paragraph>
+        </Section>
+    </ApplicationNotes>
+
+    <!-- ==================================================================
+         Cross References
+         ================================================================== -->
+    <CrossReferences>
+        <Reference type="RelatedProduct" id="LM5148">LM5148 - 80-V synchronous buck controller with ultra-low IQ and DRSS</Reference>
+        <Reference type="RelatedProduct" id="LM5149">LM5149 - 80-V synchronous buck controller with ultra-low IQ and AEF</Reference>
+        <Reference type="ApplicationNote" href="https://www.ti.com/webench">WEBENCH Power Designer</Reference>
+        <Reference type="Errata" href="#">Not published for this device at time of writing</Reference>
+    </CrossReferences>
+
+    <RevisionHistory>
+        <Revision>
+            <Number>I</Number>
+            <Date>2023-11-01</Date>
+            <Description>Added new, similar product introduction in Features and Description sections. Updated numbering format for tables, figures, and cross-references throughout the document. Changed from BODY SIZE to PACKAGE SIZE and added a table note in the Package Information table.</Description>
+        </Revision>
+        <Revision>
+            <Number>H</Number>
+            <Date>2015-07-01</Date>
+            <Description>Added ESD Ratings table, Feature Description section, Device Functional Modes, Application and Implementation section, Power Supply Recommendations section, Layout section, Device and Documentation Support section, and Mechanical, Packaging, and Orderable Information section.</Description>
+        </Revision>
+        <Revision>
+            <Number>G</Number>
+            <Date>2013-03-01</Date>
+            <Description>Changed layout of National Data Sheet to TI format.</Description>
+        </Revision>
+    </RevisionHistory>
+
+</Datasheet>
