@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Datasheet
     version="1.0"
-    schemaVersion="1.0"
+    schemaVersion="0.2"
     xmlns="https://datasheet.org/schema/v1">
 
     <Metadata>
@@ -19,6 +19,56 @@
         <License>TI Terms of Sale / TI Terms of Use</License>
         <DocumentNumber>SNVS499I</DocumentNumber>
     </Metadata>
+
+    <ComponentSpecifications>
+        <identification>
+            <designatorCategory>U</designatorCategory>
+            <designatorCategoryLabel>Integrated Circuit</designatorCategoryLabel>
+        </identification>
+        <electrical>
+            <voltageRating>
+                <unit>V</unit>
+                <dataType>RANGE</dataType>
+                <conditionOfApplication>Recommended VIN operating range</conditionOfApplication>
+                <minValue>6</minValue>
+                <maxValue>100</maxValue>
+                <source>Texas Instruments SNVS499I</source>
+            </voltageRating>
+            <frequencyRange>
+                <unit>kHz</unit>
+                <dataType>RANGE</dataType>
+                <minValue>50</minValue>
+                <maxValue>1000</maxValue>
+                <source>Texas Instruments SNVS499I</source>
+            </frequencyRange>
+            <pinCount>20</pinCount>
+        </electrical>
+        <mechanical>
+            <packageType>HTSSOP-20 (PWP)</packageType>
+            <mountingType>SMT</mountingType>
+            <terminationStyle>Gull wing</terminationStyle>
+        </mechanical>
+        <thermal>
+            <operatingTemperatureRange>
+                <unit>degC</unit>
+                <dataType>RANGE</dataType>
+                <minValue>-40</minValue>
+                <maxValue>125</maxValue>
+            </operatingTemperatureRange>
+            <maxJunctionTemperature>
+                <value>150</value>
+                <unit>degC</unit>
+                <dataType>REAL_MEASURE</dataType>
+            </maxJunctionTemperature>
+        </thermal>
+        <commercial>
+            <lifecycleStatus>Active</lifecycleStatus>
+        </commercial>
+        <documentation>
+            <datasheetUrl>https://www.ti.com/lit/ds/symlink/lm5116.pdf</datasheetUrl>
+            <datasheetRevision>I</datasheetRevision>
+        </documentation>
+    </ComponentSpecifications>
 
     <Features>
         <Feature>Emulated peak current mode control</Feature>

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Illustrative, non-commercial example exercising every CDD section. -->
+<Datasheet
+    version="1.0"
+    schemaVersion="0.2"
+    xmlns="https://datasheet.org/schema/v1">
+
+    <Metadata>
+        <Manufacturer>Example Components Ltd.</Manufacturer>
+        <Product>100 ohm 0603 thick-film resistor</Product>
+        <Family>General-purpose thick-film resistors</Family>
+        <Series>RX</Series>
+        <PartNumber>RX-100R-0603</PartNumber>
+        <Revision>1</Revision>
+        <PublicationDate>2026-08-12</PublicationDate>
+        <Status>Illustrative example</Status>
+        <Lifecycle>Active</Lifecycle>
+        <Language>en</Language>
+        <License>CC0-1.0</License>
+        <DocumentNumber>DX-EXAMPLE-R-001</DocumentNumber>
+    </Metadata>
+
+    <ComponentSpecifications>
+        <identification>
+            <designatorCategory>R</designatorCategory>
+            <designatorCategoryLabel>Resistor</designatorCategoryLabel>
+            <internalPartNumber>EX-R-100R-0603</internalPartNumber>
+        </identification>
+
+        <electrical>
+            <voltageRating>
+                <value>75</value>
+                <unit>V</unit>
+                <dataType>REAL_MEASURE</dataType>
+                <definition>Maximum continuous working voltage</definition>
+            </voltageRating>
+            <powerRating>
+                <value>0.1</value>
+                <unit>W</unit>
+                <dataType>REAL_MEASURE</dataType>
+                <conditionOfApplication>At 70 degC ambient</conditionOfApplication>
+            </powerRating>
+            <resistance>
+                <value>100</value>
+                <unit>ohm</unit>
+                <dataType>REAL_MEASURE</dataType>
+                <tolerance>+/-1%</tolerance>
+            </resistance>
+            <tolerance>
+                <value>1</value>
+                <unit>%</unit>
+                <dataType>REAL_MEASURE</dataType>
+            </tolerance>
+            <temperatureCoefficient>
+                <value>100</value>
+                <unit>ppm/K</unit>
+                <dataType>REAL_MEASURE</dataType>
+                <tolerance>+/-100 ppm/K</tolerance>
+            </temperatureCoefficient>
+            <polarized>false</polarized>
+            <pinCount>2</pinCount>
+        </electrical>
+
+        <mechanical>
+            <packageType>0603 (1608 metric)</packageType>
+            <footprint>IPC-7351 R_0603_1608Metric</footprint>
+            <dimensions>
+                <length>
+                    <value>1.6</value>
+                    <unit>mm</unit>
+                    <dataType>REAL_MEASURE</dataType>
+                    <tolerance>+/-0.1 mm</tolerance>
+                </length>
+                <width>
+                    <value>0.8</value>
+                    <unit>mm</unit>
+                    <dataType>REAL_MEASURE</dataType>
+                    <tolerance>+/-0.1 mm</tolerance>
+                </width>
+                <height>
+                    <value>0.45</value>
+                    <unit>mm</unit>
+                    <dataType>REAL_MEASURE</dataType>
+                    <maxValue>0.55</maxValue>
+                </height>
+            </dimensions>
+            <mass>
+                <value>0.002</value>
+                <unit>g</unit>
+                <dataType>REAL_MEASURE</dataType>
+            </mass>
+            <mountingType>SMT</mountingType>
+            <terminationStyle>Wraparound</terminationStyle>
+            <cadModelRef>models/RX-100R-0603.step</cadModelRef>
+        </mechanical>
+
+        <thermal>
+            <operatingTemperatureRange>
+                <unit>degC</unit>
+                <dataType>RANGE</dataType>
+                <minValue>-55</minValue>
+                <maxValue>155</maxValue>
+            </operatingTemperatureRange>
+            <storageTemperatureRange>
+                <unit>degC</unit>
+                <dataType>RANGE</dataType>
+                <minValue>-55</minValue>
+                <maxValue>155</maxValue>
+            </storageTemperatureRange>
+            <derating>
+                <unit>%/degC</unit>
+                <dataType>REAL_MEASURE</dataType>
+                <conditionOfApplication>Linear derating above 70 degC</conditionOfApplication>
+                <typValue>1.176</typValue>
+            </derating>
+            <reflowProfileCompatibility>IEC 61760-1 lead-free reflow profile</reflowProfileCompatibility>
+        </thermal>
+
+        <material>
+            <bodyMaterial>Alumina ceramic</bodyMaterial>
+            <terminationFinish>Matte tin over nickel barrier</terminationFinish>
+            <substrateMaterial>Alumina</substrateMaterial>
+            <encapsulantMaterial>Epoxy overcoat</encapsulantMaterial>
+            <flammabilityRating>Not applicable</flammabilityRating>
+            <moistureSensitivityLevel>MSL 1</moistureSensitivityLevel>
+            <colorFinish>Black</colorFinish>
+            <magneticProperties>Non-magnetic body</magneticProperties>
+            <materialComposition>
+                <substance>
+                    <substance>Alumina</substance>
+                    <casNumber>1344-28-1</casNumber>
+                    <massFraction>Approximately 60%</massFraction>
+                </substance>
+            </materialComposition>
+        </material>
+
+        <environmental>
+            <rohsCompliant>true</rohsCompliant>
+            <rohsVersion>RoHS 3 (EU 2015/863)</rohsVersion>
+            <reachCompliant>true</reachCompliant>
+            <reachSvhcListDate>2026-06-25</reachSvhcListDate>
+            <halogenFree>true</halogenFree>
+            <conflictMineralsStatus>DRC Conflict-Free</conflictMineralsStatus>
+            <humidityRating>
+                <value>95</value>
+                <unit>%RH</unit>
+                <dataType>REAL_MEASURE</dataType>
+                <conditionOfApplication>40 degC, 56 days</conditionOfApplication>
+            </humidityRating>
+            <californiaProp65>false</californiaProp65>
+        </environmental>
+
+        <reliability>
+            <failureRate>
+                <value>0.1</value>
+                <unit>FIT</unit>
+                <dataType>REAL_MEASURE</dataType>
+                <conditionOfApplication>Illustrative prediction at 40 degC</conditionOfApplication>
+            </failureRate>
+            <ratedLifetime>
+                <value>100000</value>
+                <unit>h</unit>
+                <dataType>INTEGER_MEASURE</dataType>
+            </ratedLifetime>
+            <qualificationStandard>
+                <standard>IEC 60115-8</standard>
+                <standard>AEC-Q200 (illustrative)</standard>
+            </qualificationStandard>
+            <gradeLevel>Commercial</gradeLevel>
+            <burnInTested>false</burnInTested>
+            <predictedFailureModes>
+                <mode>Open circuit</mode>
+                <mode>Resistance drift</mode>
+            </predictedFailureModes>
+            <endurance>
+                <cycleCount>
+                    <value>1000</value>
+                    <unit>h</unit>
+                    <dataType>INTEGER_COUNT</dataType>
+                </cycleCount>
+                <testMethod>Rated load endurance at 70 degC</testMethod>
+            </endurance>
+        </reliability>
+
+        <regulatory>
+            <certifications>
+                <certification>RoHS declaration</certification>
+                <certification>REACH declaration</certification>
+            </certifications>
+            <certificateNumbers>
+                <certificateNumber>EXAMPLE-CERT-001</certificateNumber>
+            </certificateNumbers>
+            <eccn>EAR99</eccn>
+            <htsCode>8533.21</htsCode>
+            <countryOfOrigin>Exampleland</countryOfOrigin>
+            <exportLicenseRequired>false</exportLicenseRequired>
+            <iecStandardRef>
+                <standard>IEC 60115-8</standard>
+            </iecStandardRef>
+        </regulatory>
+
+        <manufacturing>
+            <assemblyProcess>SMT-Reflow</assemblyProcess>
+            <solderReflowProfile>J-STD-020 compatible</solderReflowProfile>
+            <leadFreeProcessCompatible>true</leadFreeProcessCompatible>
+            <peakReflowTemperature>
+                <value>260</value>
+                <unit>degC</unit>
+                <dataType>REAL_MEASURE</dataType>
+                <conditionOfApplication>10 seconds maximum</conditionOfApplication>
+            </peakReflowTemperature>
+            <solderabilityStandard>J-STD-002</solderabilityStandard>
+            <placementOrientation>Either direction</placementOrientation>
+            <traceabilityMethod>Lot code on reel label</traceabilityMethod>
+        </manufacturing>
+
+        <commercial>
+            <lifecycleStatus>Active</lifecycleStatus>
+            <leadTimeWeeks>8</leadTimeWeeks>
+            <minimumOrderQuantity>1</minimumOrderQuantity>
+            <standardPackQuantity>5000</standardPackQuantity>
+            <priceBreaks>
+                <priceBreak>
+                    <quantity>1000</quantity>
+                    <unitPrice>0.01</unitPrice>
+                    <currency>USD</currency>
+                </priceBreak>
+            </priceBreaks>
+            <distributors>
+                <distributor>
+                    <name>Example Distributor</name>
+                    <sku>EX-RX-100R-0603</sku>
+                    <stockQuantity>10000</stockQuantity>
+                    <url>https://example.com/products/RX-100R-0603</url>
+                </distributor>
+            </distributors>
+            <alternateSources>
+                <partNumber>EXAMPLE-ALT-100R-0603</partNumber>
+            </alternateSources>
+            <obsolescenceRiskScore>0.05</obsolescenceRiskScore>
+        </commercial>
+
+        <packaging>
+            <packingMethod>Tape and Reel</packingMethod>
+            <reelSize>7 inch</reelSize>
+            <quantityPerReel>5000</quantityPerReel>
+            <tapeWidth>
+                <value>8</value>
+                <unit>mm</unit>
+                <dataType>REAL_MEASURE</dataType>
+            </tapeWidth>
+            <tapePitch>
+                <value>4</value>
+                <unit>mm</unit>
+                <dataType>REAL_MEASURE</dataType>
+            </tapePitch>
+            <orientation>Terminations perpendicular to tape travel</orientation>
+            <dryPackRequired>false</dryPackRequired>
+            <packagingMaterial>Paper carrier tape</packagingMaterial>
+            <labelingStandard>IEC 62090</labelingStandard>
+        </packaging>
+
+        <documentation>
+            <datasheetUrl>https://example.com/datasheets/RX-100R-0603.pdf</datasheetUrl>
+            <datasheetRevision>1</datasheetRevision>
+            <applicationNotes>
+                <url>https://example.com/application-notes/resistor-derating.pdf</url>
+            </applicationNotes>
+            <cadModels>
+                <cadModel>
+                    <format>STEP</format>
+                    <url>https://example.com/cad/RX-100R-0603.step</url>
+                </cadModel>
+                <cadModel>
+                    <format>KiCad</format>
+                    <url>https://example.com/cad/RX-100R-0603.kicad_mod</url>
+                </cadModel>
+            </cadModels>
+            <complianceCertificates>
+                <url>https://example.com/compliance/RX-series-rohs.pdf</url>
+            </complianceCertificates>
+            <changeNotifications>
+                <url>https://example.com/pcn/RX-2026-001.pdf</url>
+            </changeNotifications>
+            <revisionHistory>
+                <entry>
+                    <revision>1</revision>
+                    <date>2026-08-12</date>
+                    <notes>Initial illustrative DatasheetXML example.</notes>
+                </entry>
+            </revisionHistory>
+        </documentation>
+    </ComponentSpecifications>
+
+    <Features>
+        <Feature>100 ohm nominal resistance</Feature>
+        <Feature>1% tolerance</Feature>
+        <Feature>0603 surface-mount package</Feature>
+    </Features>
+
+    <Description>
+        <Paragraph>
+            This fictional part demonstrates how all twelve CDD component sections are
+            represented for a passive component. Values are illustrative only.
+        </Paragraph>
+    </Description>
+
+</Datasheet>

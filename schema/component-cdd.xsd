@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  component-cdd.xsd
+  Author: Shishir Dey.
+  Electronic component data model per IEC 61360/61987 CDD property representation and
+  IEC 61346/IPC-2612 reference-designator conventions.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:cdd="urn:component-cdd"
+           targetNamespace="urn:component-cdd"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+
+  <!-- ======================================================================
+       Root element
+       ====================================================================== -->
+  <xs:element name="Component" type="cdd:ComponentType"/>
+
+  <xs:complexType name="ComponentType">
+    <xs:sequence>
+      <xs:element name="identification"  type="cdd:IdentificationType"/>
+      <xs:element name="electrical"      type="cdd:ElectricalType"    minOccurs="0"/>
+      <xs:element name="mechanical"      type="cdd:MechanicalType"    minOccurs="0"/>
+      <xs:element name="thermal"         type="cdd:ThermalType"       minOccurs="0"/>
+      <xs:element name="material"        type="cdd:MaterialType"      minOccurs="0"/>
+      <xs:element name="environmental"   type="cdd:EnvironmentalType" minOccurs="0"/>
+      <xs:element name="reliability"     type="cdd:ReliabilityType"   minOccurs="0"/>
+      <xs:element name="regulatory"      type="cdd:RegulatoryType"    minOccurs="0"/>
+      <xs:element name="manufacturing"   type="cdd:ManufacturingType" minOccurs="0"/>
+      <xs:element name="commercial"      type="cdd:CommercialType"    minOccurs="0"/>
+      <xs:element name="packaging"       type="cdd:PackagingType"     minOccurs="0"/>
+      <xs:element name="documentation"   type="cdd:DocumentationType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ======================================================================
+       Reusable Property wrapper (IEC 61360 style)
+       ====================================================================== -->
+  <xs:complexType name="PropertyType">
+    <xs:sequence>
+      <xs:element name="value" type="xs:anySimpleType" minOccurs="0"/>
+      <xs:element name="unit" type="xs:string" minOccurs="0"/>
+      <xs:element name="dataType" type="cdd:DataTypeEnum" minOccurs="0"/>
+      <xs:element name="conditionOfApplication" type="xs:string" minOccurs="0"/>
+      <xs:element name="tolerance" type="xs:string" minOccurs="0"/>
+      <xs:element name="minValue" type="xs:double" minOccurs="0"/>
+      <xs:element name="typValue" type="xs:double" minOccurs="0"/>
+      <xs:element name="maxValue" type="xs:double" minOccurs="0"/>
+      <xs:element name="definition" type="xs:string" minOccurs="0"/>
+      <xs:element name="irdi" type="cdd:IrdiType" minOccurs="0"/>
+      <xs:element name="source" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="DataTypeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INTEGER_MEASURE"/>
+      <xs:enumeration value="REAL_MEASURE"/>
+      <xs:enumeration value="STRING"/>
+      <xs:enumeration value="BOOLEAN"/>
+      <xs:enumeration value="ENUM"/>
+      <xs:enumeration value="RANGE"/>
+      <xs:enumeration value="RATIONAL_MEASURE"/>
+      <xs:enumeration value="INTEGER_COUNT"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="IrdiType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{4}-[0-9]{4}#[0-9]{2}-[A-Z0-9]+#[0-9]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- ======================================================================
+       Identification
+       ====================================================================== -->
+  <xs:simpleType name="DesignatorCategoryEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="A"/>  <xs:enumeration value="AE"/> <xs:enumeration value="BT"/>
+      <xs:enumeration value="C"/>  <xs:enumeration value="D"/>  <xs:enumeration value="DS"/>
+      <xs:enumeration value="F"/>  <xs:enumeration value="FB"/> <xs:enumeration value="FD"/>
+      <xs:enumeration value="FL"/> <xs:enumeration value="H"/>  <xs:enumeration value="J"/>
+      <xs:enumeration value="JP"/> <xs:enumeration value="K"/>  <xs:enumeration value="L"/>
+      <xs:enumeration value="LS"/> <xs:enumeration value="M"/>  <xs:enumeration value="MK"/>
+      <xs:enumeration value="P"/>  <xs:enumeration value="Q"/>  <xs:enumeration value="R"/>
+      <xs:enumeration value="RN"/> <xs:enumeration value="RT"/> <xs:enumeration value="RV"/>
+      <xs:enumeration value="SW"/> <xs:enumeration value="T"/>  <xs:enumeration value="TC"/>
+      <xs:enumeration value="TJ"/> <xs:enumeration value="TP"/> <xs:enumeration value="U"/>
+      <xs:enumeration value="Y"/>  <xs:enumeration value="Z"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="IdentificationType">
+    <xs:sequence>
+      <xs:element name="referenceDesignator">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="(A|AE|BT|C|D|DS|F|FB|FD|FL|H|J|JP|K|L|LS|M|MK|P|Q|R|RN|RT|RV|SW|T|TC|TJ|TP|U|Y|Z)[0-9]+[A-Za-z]?"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="designatorCategory" type="cdd:DesignatorCategoryEnum"/>
+      <xs:element name="designatorCategoryLabel" type="xs:string" minOccurs="0"/>
+      <xs:element name="manufacturerPartNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="manufacturer" type="xs:string" minOccurs="0"/>
+      <xs:element name="internalPartNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="genericPartFamily" type="xs:string" minOccurs="0"/>
+      <xs:element name="irdiClassId" type="xs:string" minOccurs="0"/>
+      <xs:element name="description" type="xs:string" minOccurs="0"/>
+      <xs:element name="revision" type="xs:string" minOccurs="0"/>
+      <xs:element name="alternatePartNumbers" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="partNumber" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="eccnClassification" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ======================================================================
+       Electrical
+       ====================================================================== -->
+  <xs:complexType name="ElectricalType">
+    <xs:sequence>
+      <xs:element name="voltageRating" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="currentRating" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="powerRating" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="resistance" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="capacitance" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="inductance" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="impedance" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="frequencyRange" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="tolerance" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="temperatureCoefficient" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="dielectricType" type="xs:string" minOccurs="0"/>
+      <xs:element name="polarized" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="pinCount" type="xs:integer" minOccurs="0"/>
+      <xs:element name="logicFamily" type="xs:string" minOccurs="0"/>
+      <xs:element name="switchingCharacteristics" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="insulationResistance" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="dielectricWithstandingVoltage" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="esdRating" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="additionalProperties" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="property" type="cdd:PropertyType" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ======================================================================
+       Mechanical
+       ====================================================================== -->
+  <xs:simpleType name="MountingTypeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SMT"/> <xs:enumeration value="THT"/>
+      <xs:enumeration value="Press-fit"/> <xs:enumeration value="Panel-mount"/>
+      <xs:enumeration value="Chassis-mount"/> <xs:enumeration value="Free-standing"/>
+      <xs:enumeration value="Other"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ConnectorGenderEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Male"/> <xs:enumeration value="Female"/> <xs:enumeration value="N/A"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="DimensionsType">
+    <xs:sequence>
+      <xs:element name="length" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="width" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="height" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="diameter" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="leadPitch" type="cdd:PropertyType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MechanicalType">
+    <xs:sequence>
+      <xs:element name="packageType" type="xs:string" minOccurs="0"/>
+      <xs:element name="footprint" type="xs:string" minOccurs="0"/>
+      <xs:element name="dimensions" type="cdd:DimensionsType" minOccurs="0"/>
+      <xs:element name="mass" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="mountingType" type="cdd:MountingTypeEnum" minOccurs="0"/>
+      <xs:element name="terminationStyle" type="xs:string" minOccurs="0"/>
+      <xs:element name="mechanicalTolerance" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="connectorGender" type="cdd:ConnectorGenderEnum" minOccurs="0"/>
+      <xs:element name="keying" type="xs:string" minOccurs="0"/>
+      <xs:element name="actuationForce" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="vibrationResistance" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="shockResistance" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="cadModelRef" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ======================================================================
+       Thermal
+       ====================================================================== -->
+  <xs:complexType name="ThermalType">
+    <xs:sequence>
+      <xs:element name="operatingTemperatureRange" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="storageTemperatureRange" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="thermalResistanceJunctionAmbient" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="thermalResistanceJunctionCase" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="maxJunctionTemperature" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="derating" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="thermalConductivity" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="reflowProfileCompatibility" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ======================================================================
+       Material
+       ====================================================================== -->
+  <xs:complexType name="MaterialCompositionEntryType">
+    <xs:sequence>
+      <xs:element name="substance" type="xs:string" minOccurs="0"/>
+      <xs:element name="casNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="massFraction" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MaterialType">
+    <xs:sequence>
+      <xs:element name="bodyMaterial" type="xs:string" minOccurs="0"/>
+      <xs:element name="terminationFinish" type="xs:string" minOccurs="0"/>
+      <xs:element name="substrateMaterial" type="xs:string" minOccurs="0"/>
+      <xs:element name="encapsulantMaterial" type="xs:string" minOccurs="0"/>
+      <xs:element name="flammabilityRating" type="xs:string" minOccurs="0"/>
+      <xs:element name="moistureSensitivityLevel" type="xs:string" minOccurs="0"/>
+      <xs:element name="colorFinish" type="xs:string" minOccurs="0"/>
+      <xs:element name="magneticProperties" type="xs:string" minOccurs="0"/>
+      <xs:element name="materialComposition" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="substance" type="cdd:MaterialCompositionEntryType" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ======================================================================
+       Environmental
+       ====================================================================== -->
+  <xs:simpleType name="ConflictMineralsStatusEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DRC Conflict-Free"/>
+      <xs:enumeration value="Not Conflict-Free"/>
+      <xs:enumeration value="Not Assessed"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="EnvironmentalType">
+    <xs:sequence>
+      <xs:element name="rohsCompliant" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="rohsVersion" type="xs:string" minOccurs="0"/>
+      <xs:element name="reachCompliant" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="reachSvhcListDate" type="xs:date" minOccurs="0"/>
+      <xs:element name="halogenFree" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="conflictMineralsStatus" type="cdd:ConflictMineralsStatusEnum" minOccurs="0"/>
+      <xs:element name="ingressProtectionRating" type="xs:string" minOccurs="0"/>
+      <xs:element name="humidityRating" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="altitudeRating" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="chemicalResistance" type="xs:string" minOccurs="0"/>
+      <xs:element name="uvResistance" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="californiaProp65" type="xs:boolean" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ======================================================================
+       Reliability
+       ====================================================================== -->
+  <xs:complexType name="EnduranceType">
+    <xs:sequence>
+      <xs:element name="cycleCount" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="testMethod" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ReliabilityType">
+    <xs:sequence>
+      <xs:element name="mtbf" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="failureRate" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="ratedLifetime" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="qualificationStandard" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="standard" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="gradeLevel" type="xs:string" minOccurs="0"/>
+      <xs:element name="burnInTested" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="predictedFailureModes" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="mode" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="endurance" type="cdd:EnduranceType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ======================================================================
+       Regulatory
+       ====================================================================== -->
+  <xs:complexType name="RegulatoryType">
+    <xs:sequence>
+      <xs:element name="certifications" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="certification" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="certificateNumbers" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="certificateNumber" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="eccn" type="xs:string" minOccurs="0"/>
+      <xs:element name="htsCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="countryOfOrigin" type="xs:string" minOccurs="0"/>
+      <xs:element name="exportLicenseRequired" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="ituCompliance" type="xs:string" minOccurs="0"/>
+      <xs:element name="iecStandardRef" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="standard" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ======================================================================
+       Manufacturing
+       ====================================================================== -->
+  <xs:simpleType name="AssemblyProcessEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SMT-Reflow"/> <xs:enumeration value="THT-Wave"/>
+      <xs:enumeration value="THT-Selective"/> <xs:enumeration value="Manual"/>
+      <xs:enumeration value="Press-fit"/> <xs:enumeration value="Other"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="ManufacturingType">
+    <xs:sequence>
+      <xs:element name="assemblyProcess" type="cdd:AssemblyProcessEnum" minOccurs="0"/>
+      <xs:element name="solderReflowProfile" type="xs:string" minOccurs="0"/>
+      <xs:element name="leadFreeProcessCompatible" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="peakReflowTemperature" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="solderabilityStandard" type="xs:string" minOccurs="0"/>
+      <xs:element name="placementOrientation" type="xs:string" minOccurs="0"/>
+      <xs:element name="testCoverage" type="xs:string" minOccurs="0"/>
+      <xs:element name="yieldRate" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="processCapabilityIndex" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="traceabilityMethod" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ======================================================================
+       Commercial
+       ====================================================================== -->
+  <xs:simpleType name="LifecycleStatusEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Active"/> <xs:enumeration value="NRND"/>
+      <xs:enumeration value="EOL"/> <xs:enumeration value="Obsolete"/>
+      <xs:enumeration value="Preview"/> <xs:enumeration value="Unknown"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="PriceBreakType">
+    <xs:sequence>
+      <xs:element name="quantity" type="xs:integer" minOccurs="0"/>
+      <xs:element name="unitPrice" type="xs:double" minOccurs="0"/>
+      <xs:element name="currency" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DistributorType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="sku" type="xs:string" minOccurs="0"/>
+      <xs:element name="stockQuantity" type="xs:integer" minOccurs="0"/>
+      <xs:element name="url" type="xs:anyURI" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommercialType">
+    <xs:sequence>
+      <xs:element name="lifecycleStatus" type="cdd:LifecycleStatusEnum" minOccurs="0"/>
+      <xs:element name="lastTimeBuyDate" type="xs:date" minOccurs="0"/>
+      <xs:element name="endOfLifeDate" type="xs:date" minOccurs="0"/>
+      <xs:element name="leadTimeWeeks" type="xs:double" minOccurs="0"/>
+      <xs:element name="minimumOrderQuantity" type="xs:integer" minOccurs="0"/>
+      <xs:element name="standardPackQuantity" type="xs:integer" minOccurs="0"/>
+      <xs:element name="priceBreaks" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="priceBreak" type="cdd:PriceBreakType" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="distributors" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="distributor" type="cdd:DistributorType" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="alternateSources" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="partNumber" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="obsolescenceRiskScore" type="xs:double" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ======================================================================
+       Packaging
+       ====================================================================== -->
+  <xs:simpleType name="PackingMethodEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Tape and Reel"/> <xs:enumeration value="Tube"/>
+      <xs:enumeration value="Tray"/> <xs:enumeration value="Bulk"/>
+      <xs:enumeration value="Cut Tape"/> <xs:enumeration value="Bag"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="PackagingType">
+    <xs:sequence>
+      <xs:element name="packingMethod" type="cdd:PackingMethodEnum" minOccurs="0"/>
+      <xs:element name="reelSize" type="xs:string" minOccurs="0"/>
+      <xs:element name="quantityPerReel" type="xs:integer" minOccurs="0"/>
+      <xs:element name="tapeWidth" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="tapePitch" type="cdd:PropertyType" minOccurs="0"/>
+      <xs:element name="orientation" type="xs:string" minOccurs="0"/>
+      <xs:element name="dryPackRequired" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="packagingMaterial" type="xs:string" minOccurs="0"/>
+      <xs:element name="labelingStandard" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ======================================================================
+       Documentation
+       ====================================================================== -->
+  <xs:simpleType name="CadModelFormatEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="STEP"/> <xs:enumeration value="IGES"/>
+      <xs:enumeration value="KiCad"/> <xs:enumeration value="Altium"/>
+      <xs:enumeration value="Eagle"/> <xs:enumeration value="Other"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="CadModelType">
+    <xs:sequence>
+      <xs:element name="format" type="cdd:CadModelFormatEnum" minOccurs="0"/>
+      <xs:element name="url" type="xs:anyURI" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RevisionHistoryEntryType">
+    <xs:sequence>
+      <xs:element name="revision" type="xs:string" minOccurs="0"/>
+      <xs:element name="date" type="xs:date" minOccurs="0"/>
+      <xs:element name="notes" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DocumentationType">
+    <xs:sequence>
+      <xs:element name="datasheetUrl" type="xs:anyURI" minOccurs="0"/>
+      <xs:element name="datasheetRevision" type="xs:string" minOccurs="0"/>
+      <xs:element name="applicationNotes" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="url" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="cadModels" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="cadModel" type="cdd:CadModelType" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="complianceCertificates" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="url" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="changeNotifications" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="url" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="safetyDataSheet" type="xs:anyURI" minOccurs="0"/>
+      <xs:element name="revisionHistory" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" type="cdd:RevisionHistoryEntryType" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
