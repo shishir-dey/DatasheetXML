@@ -8,7 +8,7 @@
   <meta name="description" content="DatasheetXML is a vendor-neutral, machine-readable XML standard for electronic component datasheets, covering identification, electrical, mechanical, thermal, environmental, commercial, and other component specifications.">
   <meta name="keywords" content="DatasheetXML, electronic components, component datasheet, XML schema, XSD, CDD, IEC 61360, EDA, PLM, machine-readable datasheet, resistor, capacitor, integrated circuit">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="theme-color" id="theme-color-meta" content="#f0ece4">
+  <meta name="theme-color" id="theme-color-meta" content="#f3e4c5">
   <link rel="canonical" href="{{SITE_URL}}">
 
   <meta property="og:title" content="DatasheetXML — Electronic Component Datasheet Standard">
@@ -22,10 +22,6 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="DatasheetXML — Electronic Component Datasheet Standard">
   <meta name="twitter:description" content="A vendor-neutral, schema-validated and machine-readable format for electronic component datasheets.">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Public+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -47,45 +43,64 @@
   <style>
     :root {
       color-scheme: light;
-      --bg-base: #f0ece4;
-      --surface: #f5f3ef;
-      --surface-raised: #ece8e0;
-      --border: #d8d4cd;
-      --text: #2f3437;
-      --muted: #5f666d;
-      --accent: #2b5fb8;
-      --accent-soft: rgba(43, 95, 184, 0.16);
-      --code: #e9e4dc;
-      --shadow: 0 12px 36px rgba(48, 45, 41, 0.09);
+      --bg-base: #f3e4c5;
+      --page-bg:
+        radial-gradient(
+          circle at 18% 10%,
+          rgba(255, 248, 228, 0.82) 0%,
+          rgba(215, 161, 72, 0.2) 34%,
+          transparent 56%
+        ),
+        linear-gradient(155deg, #fbf7ef 0%, #f3e4c5 44%, #f1eadc 68%, #ffffff 100%);
+      --surface: #fffefa;
+      --surface-raised: #f7f0e3;
+      --border: rgba(142, 92, 35, 0.16);
+      --text: #0f172a;
+      --muted: #334155;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.14);
+      --code: #f4ecdc;
+      --shadow: 0 8px 20px rgba(92, 57, 16, 0.08);
     }
 
     [data-theme="dark"] {
       color-scheme: dark;
-      --bg-base: #161311;
-      --surface: #26221d;
-      --surface-raised: #312c26;
-      --border: #3a342e;
-      --text: #f0ebe3;
-      --muted: #cbc2b5;
-      --accent: #8ab4ff;
-      --accent-soft: rgba(138, 180, 255, 0.18);
-      --code: #1f1b17;
-      --shadow: 0 16px 36px rgba(0, 0, 0, 0.32);
+      --bg-base: #254666;
+      --page-bg:
+        radial-gradient(
+          circle at 86% 14%,
+          rgba(215, 230, 247, 0.44) 0%,
+          rgba(137, 176, 214, 0.24) 30%,
+          transparent 54%
+        ),
+        linear-gradient(155deg, #172c45 0%, #254666 44%, #345f82 76%, #172c45 100%);
+      --surface: #243a52;
+      --surface-raised: #2b465f;
+      --border: rgba(215, 230, 247, 0.18);
+      --text: #e2e8f0;
+      --muted: #cbd5e1;
+      --accent: #60a5fa;
+      --accent-soft: rgba(96, 165, 250, 0.16);
+      --code: #20364d;
+      --shadow: 0 8px 20px rgba(6, 16, 31, 0.34);
     }
 
     * { box-sizing: border-box; }
 
     html {
       scroll-behavior: smooth;
-      background: var(--bg-base);
+      background-color: var(--bg-base);
+      background-image: var(--page-bg);
+      background-attachment: fixed;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
-      background: var(--bg-base);
+      padding: 48px 18px;
+      background: transparent;
       color: var(--text);
-      font-family: "Public Sans", "Avenir Next", "Segoe UI", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
       font-size: 15.5px;
       line-height: 1.62;
       letter-spacing: -0.004em;
@@ -93,28 +108,10 @@
       transition: background-color 0.25s ease, color 0.25s ease;
     }
 
-    body::before {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      content: "";
-      background-image:
-        radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.42) 0, transparent 42%),
-        radial-gradient(circle at 84% 80%, rgba(229, 223, 210, 0.58) 0, transparent 38%),
-        repeating-linear-gradient(120deg, rgba(59, 53, 46, 0.03) 0 1px, transparent 1px 6px);
-    }
-
-    [data-theme="dark"] body::before {
-      background-image:
-        radial-gradient(circle at 12% 18%, rgba(66, 61, 55, 0.36) 0, transparent 42%),
-        radial-gradient(circle at 84% 80%, rgba(50, 44, 39, 0.5) 0, transparent 38%),
-        repeating-linear-gradient(120deg, rgba(235, 225, 210, 0.03) 0 1px, transparent 1px 6px);
-    }
-
     .page {
       position: relative;
-      width: min(960px, calc(100% - 36px));
-      margin: 48px auto;
+      width: min(960px, 100%);
+      margin: 0 auto;
       padding: 44px;
       overflow: hidden;
       background: var(--surface);
@@ -143,7 +140,7 @@
       background: var(--surface-raised);
       border: 1px solid var(--border);
       border-radius: 10px;
-      font: 600 0.86rem/1 "Public Sans", sans-serif;
+      font: 600 0.86rem/1 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
       text-decoration: none;
       cursor: pointer;
       transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
@@ -170,11 +167,21 @@
       border-bottom: 1px solid var(--border);
     }
 
+    .markdown-body > div[align="center"] h3,
+    .markdown-body > div[align="center"] h3 strong,
+    .markdown-body > div[align="center"] p strong {
+      font-weight: 400;
+    }
+
     .author-line {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 9px;
+    }
+
+    .markdown-body > div[align="center"] .author-line strong {
+      font-weight: 700;
     }
 
     .author-links {
@@ -259,7 +266,7 @@
     tbody tr:hover { background: var(--accent-soft); }
 
     code, pre {
-      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      font-family: "SFMono-Regular", "SF Mono", Menlo, Monaco, Consolas, monospace;
     }
 
     code {
@@ -287,7 +294,8 @@
     ::selection { background: var(--accent-soft); }
 
     @media (max-width: 700px) {
-      .page { width: calc(100% - 24px); margin: 16px auto; padding: 20px 16px 24px; border-radius: 16px; }
+      body { padding: 16px 12px; }
+      .page { width: 100%; padding: 20px 16px 24px; border-radius: 16px; }
       .site-controls { margin-bottom: 12px; }
       h2 { font-size: 1.35rem; }
       h3 { font-size: 1.08rem; }
@@ -298,6 +306,7 @@
     @media print {
       .site-controls { display: none; }
       body, .page { background: white; color: black; }
+      body { padding: 0; }
       .page { width: 100%; margin: 0; padding: 0; border: 0; box-shadow: none; }
     }
   </style>
