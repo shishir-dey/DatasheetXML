@@ -14,7 +14,12 @@
 
 </div>
 
----
+<aside class="spec-summary">
+<strong>✨ DatasheetXML</strong> is a structured datasheet format where manufacturers
+publish XML as the source. LLMs consume only the compact semantic markup—not
+presentation and styling data—reducing input token usage, while PDF, HTML, and
+Markdown are generated separately for human use.
+</aside>
 
 ## Table of Contents
 

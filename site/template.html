@@ -59,6 +59,9 @@
       --muted: #334155;
       --accent: #2563eb;
       --accent-soft: rgba(37, 99, 235, 0.14);
+      --highlight: #2563eb;
+      --highlight-soft: rgba(37, 99, 235, 0.14);
+      --highlight-shadow: rgba(37, 99, 235, 0.08);
       --code: #f4ecdc;
       --shadow: 0 8px 20px rgba(92, 57, 16, 0.08);
     }
@@ -81,6 +84,9 @@
       --muted: #cbd5e1;
       --accent: #60a5fa;
       --accent-soft: rgba(96, 165, 250, 0.16);
+      --highlight: #c99a4d;
+      --highlight-soft: rgba(201, 154, 77, 0.16);
+      --highlight-shadow: rgba(201, 154, 77, 0.12);
       --code: #20364d;
       --shadow: 0 8px 20px rgba(6, 16, 31, 0.34);
     }
@@ -164,7 +170,6 @@
     .markdown-body > div[align="center"] {
       margin-bottom: 28px;
       padding-bottom: 28px;
-      border-bottom: 1px solid var(--border);
     }
 
     .markdown-body > div[align="center"] h3,
@@ -182,6 +187,35 @@
 
     .markdown-body > div[align="center"] .author-line strong {
       font-weight: 700;
+    }
+
+    .spec-summary {
+      position: relative;
+      margin: 26px 0 34px;
+      padding: 18px 20px 18px 24px;
+      overflow: hidden;
+      color: var(--text);
+      background: var(--highlight-soft);
+      border: 1px solid var(--highlight);
+      border-radius: 14px;
+      box-shadow: 0 4px 10px var(--highlight-shadow);
+      font-size: 0.94rem;
+      line-height: 1.65;
+    }
+
+    .spec-summary::before {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 5px;
+      content: "";
+      background: var(--highlight);
+    }
+
+    .spec-summary code {
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-weight: 600;
     }
 
     .author-links {
@@ -297,6 +331,7 @@
       body { padding: 16px 12px; }
       .page { width: 100%; padding: 20px 16px 24px; border-radius: 16px; }
       .site-controls { margin-bottom: 12px; }
+      .spec-summary { margin: 20px 0 26px; padding: 15px 16px 15px 20px; font-size: 0.9rem; }
       h2 { font-size: 1.35rem; }
       h3 { font-size: 1.08rem; }
       th, td { padding: 10px; font-size: 0.88rem; }
