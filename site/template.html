@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DatasheetXML — Machine-Readable Electronic Component Datasheets</title>
+  <meta name="author" content="Shishir Dey">
+  <meta name="description" content="DatasheetXML is a vendor-neutral, machine-readable XML standard for electronic component datasheets, covering identification, electrical, mechanical, thermal, environmental, commercial, and other component specifications.">
+  <meta name="keywords" content="DatasheetXML, electronic components, component datasheet, XML schema, XSD, CDD, IEC 61360, EDA, PLM, machine-readable datasheet, resistor, capacitor, integrated circuit">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" id="theme-color-meta" content="#f0ece4">
+  <link rel="canonical" href="{{SITE_URL}}">
+
+  <meta property="og:title" content="DatasheetXML — Electronic Component Datasheet Standard">
+  <meta property="og:description" content="A vendor-neutral, schema-validated and machine-readable format for datasheets covering any electronic component.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="{{SITE_URL}}">
+  <meta property="og:site_name" content="DatasheetXML">
+  <meta property="article:author" content="Shishir Dey">
+  <meta property="article:section" content="Technical specification">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="DatasheetXML — Electronic Component Datasheet Standard">
+  <meta name="twitter:description" content="A vendor-neutral, schema-validated and machine-readable format for electronic component datasheets.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Public+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "DatasheetXML: A Vendor-Neutral, Machine-Readable Format for Electronic Component Datasheets",
+    "description": "A schema-validated XML standard for datasheets covering any electronic or electromechanical component.",
+    "version": "{{SPEC_VERSION}}",
+    "author": {
+      "@type": "Person",
+      "name": "Shishir Dey"
+    },
+    "url": "{{SITE_URL}}",
+    "codeRepository": "{{REPOSITORY_URL}}",
+    "keywords": ["DatasheetXML", "electronic components", "XML Schema", "CDD", "EDA", "machine-readable datasheets"]
+  }
+  </script>
+
+  <style>
+    :root {
+      color-scheme: light;
+      --bg-base: #f0ece4;
+      --surface: #f5f3ef;
+      --surface-raised: #ece8e0;
+      --border: #d8d4cd;
+      --text: #2f3437;
+      --muted: #5f666d;
+      --accent: #2b5fb8;
+      --accent-soft: rgba(43, 95, 184, 0.16);
+      --code: #e9e4dc;
+      --shadow: 0 12px 36px rgba(48, 45, 41, 0.09);
+    }
+
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --bg-base: #161311;
+      --surface: #26221d;
+      --surface-raised: #312c26;
+      --border: #3a342e;
+      --text: #f0ebe3;
+      --muted: #cbc2b5;
+      --accent: #8ab4ff;
+      --accent-soft: rgba(138, 180, 255, 0.18);
+      --code: #1f1b17;
+      --shadow: 0 16px 36px rgba(0, 0, 0, 0.32);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg-base);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg-base);
+      color: var(--text);
+      font-family: "Public Sans", "Avenir Next", "Segoe UI", sans-serif;
+      font-size: 15.5px;
+      line-height: 1.62;
+      letter-spacing: -0.004em;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      content: "";
+      background-image:
+        radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.42) 0, transparent 42%),
+        radial-gradient(circle at 84% 80%, rgba(229, 223, 210, 0.58) 0, transparent 38%),
+        repeating-linear-gradient(120deg, rgba(59, 53, 46, 0.03) 0 1px, transparent 1px 6px);
+    }
+
+    [data-theme="dark"] body::before {
+      background-image:
+        radial-gradient(circle at 12% 18%, rgba(66, 61, 55, 0.36) 0, transparent 42%),
+        radial-gradient(circle at 84% 80%, rgba(50, 44, 39, 0.5) 0, transparent 38%),
+        repeating-linear-gradient(120deg, rgba(235, 225, 210, 0.03) 0 1px, transparent 1px 6px);
+    }
+
+    .page {
+      position: relative;
+      width: min(960px, calc(100% - 36px));
+      margin: 48px auto;
+      padding: 44px;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .site-controls {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .control {
+      display: inline-flex;
+      min-width: 40px;
+      height: 38px;
+      padding: 0 12px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--muted);
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font: 600 0.86rem/1 "Public Sans", sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .control:hover,
+    .control:focus-visible {
+      color: var(--text);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+      outline: none;
+      text-decoration: none;
+    }
+
+    .control svg { width: 17px; height: 17px; }
+
+    .theme-icon-sun { display: none; }
+    [data-theme="dark"] .theme-icon-moon { display: none; }
+    [data-theme="dark"] .theme-icon-sun { display: block; }
+
+    .markdown-body > div[align="center"] {
+      margin-bottom: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--text);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.016em;
+      scroll-margin-top: 20px;
+    }
+
+    h1 { margin: 0.2em 0 0.35em; font-size: clamp(2rem, 6vw, 2.7rem); }
+    h2 { margin: 2em 0 0.9em; padding-bottom: 0.48em; border-bottom: 1px solid var(--border); font-size: 1.62rem; }
+    h3 { margin: 1.55em 0 0.7em; font-size: 1.22rem; }
+    h4 { margin: 1.4em 0 0.6em; font-size: 1.05rem; }
+
+    p, li { color: var(--muted); }
+    strong { color: var(--text); }
+    hr { margin: 32px 0; border: 0; border-top: 1px solid var(--border); }
+    img { max-width: 100%; height: auto; }
+
+    a {
+      color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    a:hover { text-decoration-thickness: 2px; }
+
+    blockquote {
+      margin: 20px 0;
+      padding: 4px 18px;
+      background: var(--surface-raised);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+    }
+
+    ul, ol { padding-left: 1.45rem; }
+    li + li { margin-top: 0.28rem; }
+    input[type="checkbox"] { accent-color: var(--accent); }
+
+    .table-wrapper {
+      margin: 20px 0;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    table { width: 100%; border-collapse: collapse; background: var(--surface-raised); }
+    th, td { padding: 12px 14px; color: var(--muted); text-align: left; border-bottom: 1px solid var(--border); }
+    th { color: var(--text); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+    tr:last-child td { border-bottom: 0; }
+    tbody tr:hover { background: var(--accent-soft); }
+
+    code, pre {
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    }
+
+    code {
+      padding: 0.16em 0.38em;
+      color: var(--text);
+      background: var(--surface-raised);
+      border-radius: 5px;
+      font-size: 0.88em;
+    }
+
+    pre {
+      margin: 20px 0;
+      padding: 18px 20px;
+      overflow-x: auto;
+      color: var(--text);
+      background: var(--code);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    pre code { padding: 0; background: transparent; font-size: inherit; }
+
+    ::selection { background: var(--accent-soft); }
+
+    @media (max-width: 700px) {
+      .page { width: calc(100% - 24px); margin: 16px auto; padding: 20px 16px 24px; border-radius: 16px; }
+      .site-controls { margin-bottom: 12px; }
+      h2 { font-size: 1.35rem; }
+      h3 { font-size: 1.08rem; }
+      th, td { padding: 10px; font-size: 0.88rem; }
+      pre { margin-inline: -4px; padding: 14px; font-size: 0.78rem; }
+    }
+
+    @media print {
+      .site-controls { display: none; }
+      body, .page { background: white; color: black; }
+      .page { width: 100%; margin: 0; padding: 0; border: 0; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="site-controls" aria-label="Page controls">
+      <button class="control" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <a class="control" href="{{REPOSITORY_URL}}" target="_blank" rel="noopener noreferrer" aria-label="View DatasheetXML on GitHub" title="View source on GitHub">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.7 7.7 0 0 1 8 3.8c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+      </a>
+    </nav>
+    <article class="markdown-body">
+{{CONTENT}}
+    </article>
+  </main>
+
+  <script>
+    const root = document.documentElement;
+    const toggle = document.getElementById("theme-toggle");
+    const themeColor = document.getElementById("theme-color-meta");
+
+    function syncThemeColor() {
+      themeColor.setAttribute("content", getComputedStyle(root).getPropertyValue("--bg-base").trim());
+      const targetTheme = root.dataset.theme === "dark" ? "light" : "dark";
+      const label = `Switch to ${targetTheme} theme`;
+      toggle.setAttribute("aria-label", label);
+      toggle.setAttribute("title", label);
+    }
+
+    toggle.addEventListener("click", () => {
+      const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = nextTheme;
+      syncThemeColor();
+    });
+
+    syncThemeColor();
+  </script>
+</body>
+</html>

@@ -628,13 +628,4 @@ Future versions may define:
 
 ## License
 
-*License terms for this specification have not yet been finalized (see [§6 Metadata](#6-metadata) → `License`). Proposed: publish the schema and examples under a permissive license (e.g. CC-BY 4.0 or Apache-2.0) to encourage manufacturer and tooling adoption.*
-
----
-
-<div align="center">
-
-**DatasheetXML Specification v0.2 — Draft**
-Issues and proposals welcome via pull request.
-
-</div>
+License terms for this specification have not yet been finalized. Proposed: publish the schema and examples under a permissive license (e.g. CC-BY 4.0 or Apache-2.0) to encourage manufacturer and tooling adoption.
