@@ -2,7 +2,7 @@ import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { marked } from "marked";
 
 const readmePath = new URL("../README.md", import.meta.url);
-const templatePath = new URL("../site/template.html", import.meta.url);
+const templatePath = new URL("./template.html", import.meta.url);
 const outputDirectory = new URL("../dist/", import.meta.url);
 
 const escapeHtml = (value) =>

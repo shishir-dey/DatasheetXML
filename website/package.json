@@ -5,7 +5,7 @@
   "description": "Build tooling for the DatasheetXML specification website",
   "type": "module",
   "scripts": {
-    "build:site": "node scripts/build-site.mjs"
+    "build:site": "node build-site.mjs"
   },
   "devDependencies": {
     "marked": "18.0.9"

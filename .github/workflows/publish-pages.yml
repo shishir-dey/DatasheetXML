@@ -5,10 +5,7 @@ on:
     branches: [main]
     paths:
       - README.md
-      - package.json
-      - package-lock.json
-      - scripts/**
-      - site/**
+      - website/**
       - .github/workflows/publish-pages.yml
   workflow_dispatch:
 
@@ -37,11 +34,14 @@ jobs:
         with:
           node-version: 24
           cache: npm
+          cache-dependency-path: website/package-lock.json
 
       - name: Install documentation dependencies
+        working-directory: website
         run: npm ci
 
       - name: Generate site from README
+        working-directory: website
         run: npm run build:site
         env:
           SITE_URL: https://shishir-dey.github.io/DatasheetXML/
