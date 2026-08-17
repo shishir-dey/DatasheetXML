@@ -1,8 +1,9 @@
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { marked } from "marked";
 
 const readmePath = new URL("../README.md", import.meta.url);
 const templatePath = new URL("./template.html", import.meta.url);
+const publicDirectory = new URL("./public/", import.meta.url);
 const outputDirectory = new URL("../dist/", import.meta.url);
 
 const escapeHtml = (value) =>
@@ -90,6 +91,7 @@ Sitemap: ${siteUrl}sitemap.xml
 
 await rm(outputDirectory, { recursive: true, force: true });
 await mkdir(outputDirectory, { recursive: true });
+await cp(publicDirectory, outputDirectory, { recursive: true });
 await Promise.all([
   writeFile(new URL("index.html", outputDirectory), page),
   writeFile(new URL("sitemap.xml", outputDirectory), sitemap),
