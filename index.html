@@ -1,0 +1,1522 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DatasheetXML — Machine-Readable Electronic Component Datasheets</title>
+  <meta name="author" content="Shishir Dey">
+  <meta name="description" content="DatasheetXML is a vendor-neutral, machine-readable XML standard for electronic component datasheets, covering identification, electrical, mechanical, thermal, environmental, commercial, and other component specifications.">
+  <meta name="keywords" content="DatasheetXML, electronic components, component datasheet, XML schema, XSD, CDD, IEC 61360, EDA, PLM, machine-readable datasheet, resistor, capacitor, integrated circuit">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" id="theme-color-meta" content="#f3e4c5">
+  <link rel="canonical" href="https://shishir-dey.github.io/DatasheetXML/">
+  <link rel="icon" type="image/png" href="https://shishir-dey.github.io/DatasheetXML/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="https://shishir-dey.github.io/DatasheetXML/favicon.svg">
+  <link rel="shortcut icon" href="https://shishir-dey.github.io/DatasheetXML/favicon.ico">
+  <link rel="apple-touch-icon" href="https://shishir-dey.github.io/DatasheetXML/apple-touch-icon.png" sizes="180x180">
+
+  <meta property="og:title" content="DatasheetXML — Electronic Component Datasheet Standard">
+  <meta property="og:description" content="A vendor-neutral, schema-validated and machine-readable format for datasheets covering any electronic component.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://shishir-dey.github.io/DatasheetXML/">
+  <meta property="og:site_name" content="DatasheetXML">
+  <meta property="og:image" content="https://shishir-dey.github.io/DatasheetXML/dsxml.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="2000">
+  <meta property="og:image:alt" content="DatasheetXML wordmark">
+  <meta property="article:author" content="Shishir Dey">
+  <meta property="article:section" content="Technical specification">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DatasheetXML — Electronic Component Datasheet Standard">
+  <meta name="twitter:description" content="A vendor-neutral, schema-validated and machine-readable format for electronic component datasheets.">
+  <meta name="twitter:image" content="https://shishir-dey.github.io/DatasheetXML/dsxml.png">
+  <meta name="twitter:image:alt" content="DatasheetXML wordmark">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "DatasheetXML: A Vendor-Neutral, Machine-Readable Format for Electronic Component Datasheets",
+    "description": "A schema-validated XML standard for datasheets covering any electronic or electromechanical component.",
+    "version": "0.3",
+    "author": {
+      "@type": "Person",
+      "name": "Shishir Dey"
+    },
+    "url": "https://shishir-dey.github.io/DatasheetXML/",
+    "codeRepository": "https://github.com/shishir-dey/DatasheetXML",
+    "keywords": ["DatasheetXML", "electronic components", "XML Schema", "CDD", "EDA", "machine-readable datasheets"]
+  }
+  </script>
+
+  <style>
+    :root {
+      color-scheme: light;
+      --bg-base: #f3e4c5;
+      --page-bg:
+        radial-gradient(
+          circle at 18% 10%,
+          rgba(255, 248, 228, 0.82) 0%,
+          rgba(215, 161, 72, 0.2) 34%,
+          transparent 56%
+        ),
+        linear-gradient(155deg, #fbf7ef 0%, #f3e4c5 44%, #f1eadc 68%, #ffffff 100%);
+      --surface: #fffefa;
+      --surface-raised: #f7f0e3;
+      --border: rgba(142, 92, 35, 0.16);
+      --text: #0f172a;
+      --muted: #334155;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.14);
+      --highlight: #2563eb;
+      --highlight-soft: rgba(37, 99, 235, 0.14);
+      --highlight-shadow: rgba(37, 99, 235, 0.08);
+      --code: #f4ecdc;
+      --shadow: 0 8px 20px rgba(92, 57, 16, 0.08);
+    }
+
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --bg-base: #254666;
+      --page-bg:
+        radial-gradient(
+          circle at 86% 14%,
+          rgba(215, 230, 247, 0.44) 0%,
+          rgba(137, 176, 214, 0.24) 30%,
+          transparent 54%
+        ),
+        linear-gradient(155deg, #172c45 0%, #254666 44%, #345f82 76%, #172c45 100%);
+      --surface: #243a52;
+      --surface-raised: #2b465f;
+      --border: rgba(215, 230, 247, 0.18);
+      --text: #e2e8f0;
+      --muted: #cbd5e1;
+      --accent: #60a5fa;
+      --accent-soft: rgba(96, 165, 250, 0.16);
+      --highlight: #c99a4d;
+      --highlight-soft: rgba(201, 154, 77, 0.16);
+      --highlight-shadow: rgba(201, 154, 77, 0.12);
+      --code: #20364d;
+      --shadow: 0 8px 20px rgba(6, 16, 31, 0.34);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-base);
+      background-image: var(--page-bg);
+      background-attachment: fixed;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 48px 18px;
+      background: transparent;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      font-size: 15.5px;
+      line-height: 1.62;
+      letter-spacing: -0.004em;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .page {
+      position: relative;
+      width: min(960px, 100%);
+      margin: 0 auto;
+      padding: 44px;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .site-controls {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .control {
+      display: inline-flex;
+      min-width: 40px;
+      height: 38px;
+      padding: 0 12px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--muted);
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font: 600 0.86rem/1 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .control:hover,
+    .control:focus-visible {
+      color: var(--text);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+      outline: none;
+      text-decoration: none;
+    }
+
+    .control svg { width: 17px; height: 17px; }
+
+    .theme-icon-sun { display: none; }
+    [data-theme="dark"] .theme-icon-moon { display: none; }
+    [data-theme="dark"] .theme-icon-sun { display: block; }
+
+    .markdown-body > div[align="center"] {
+      margin-bottom: 28px;
+      padding-bottom: 28px;
+    }
+
+    .markdown-body > div[align="center"] h3,
+    .markdown-body > div[align="center"] h3 strong,
+    .markdown-body > div[align="center"] p strong {
+      font-weight: 400;
+    }
+
+    .author-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+    }
+
+    .markdown-body > div[align="center"] .author-line strong {
+      font-weight: 700;
+    }
+
+    .spec-summary {
+      position: relative;
+      margin: 26px 0 34px;
+      padding: 18px 20px 18px 24px;
+      overflow: hidden;
+      color: var(--text);
+      background: var(--highlight-soft);
+      border: 1px solid var(--highlight);
+      border-radius: 14px;
+      box-shadow: 0 4px 10px var(--highlight-shadow);
+      font-size: 0.94rem;
+      line-height: 1.65;
+    }
+
+    .spec-summary::before {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 5px;
+      content: "";
+      background: var(--highlight);
+    }
+
+    .spec-summary code {
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-weight: 600;
+    }
+
+    .author-links {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .author-link {
+      display: inline-flex;
+      width: 28px;
+      height: 28px;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .author-link:hover,
+    .author-link:focus-visible {
+      color: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+      outline: none;
+      text-decoration: none;
+    }
+
+    .author-link svg { width: 15px; height: 15px; }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--text);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.016em;
+      scroll-margin-top: 20px;
+    }
+
+    h1 { margin: 0.2em 0 0.35em; font-size: clamp(2rem, 6vw, 2.7rem); }
+    h2 { margin: 2em 0 0.9em; padding-bottom: 0.48em; border-bottom: 1px solid var(--border); font-size: 1.62rem; }
+    h3 { margin: 1.55em 0 0.7em; font-size: 1.22rem; }
+    h4 { margin: 1.4em 0 0.6em; font-size: 1.05rem; }
+
+    p, li { color: var(--muted); }
+    strong { color: var(--text); }
+    hr { margin: 32px 0; border: 0; border-top: 1px solid var(--border); }
+    img { max-width: 100%; height: auto; }
+
+    a {
+      color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    a:hover { text-decoration-thickness: 2px; }
+
+    blockquote {
+      margin: 20px 0;
+      padding: 4px 18px;
+      background: var(--surface-raised);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+    }
+
+    ul, ol { padding-left: 1.45rem; }
+    li + li { margin-top: 0.28rem; }
+    input[type="checkbox"] { accent-color: var(--accent); }
+
+    .table-wrapper {
+      margin: 20px 0;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    table { width: 100%; border-collapse: collapse; background: var(--surface-raised); }
+    th, td { padding: 12px 14px; color: var(--muted); text-align: left; border-bottom: 1px solid var(--border); }
+    th { color: var(--text); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+    tr:last-child td { border-bottom: 0; }
+    tbody tr:hover { background: var(--accent-soft); }
+
+    code, pre {
+      font-family: "SFMono-Regular", "SF Mono", Menlo, Monaco, Consolas, monospace;
+    }
+
+    code {
+      padding: 0.16em 0.38em;
+      color: var(--text);
+      background: var(--surface-raised);
+      border-radius: 5px;
+      font-size: 0.88em;
+    }
+
+    pre {
+      margin: 20px 0;
+      padding: 18px 20px;
+      overflow-x: auto;
+      color: var(--text);
+      background: var(--code);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    pre code { padding: 0; background: transparent; font-size: inherit; }
+
+    ::selection { background: var(--accent-soft); }
+
+    @media (max-width: 700px) {
+      body { padding: 16px 12px; }
+      .page { width: 100%; padding: 20px 16px 24px; border-radius: 16px; }
+      .site-controls { margin-bottom: 12px; }
+      .spec-summary { margin: 20px 0 26px; padding: 15px 16px 15px 20px; font-size: 0.9rem; }
+      h2 { font-size: 1.35rem; }
+      h3 { font-size: 1.08rem; }
+      th, td { padding: 10px; font-size: 0.88rem; }
+      pre { margin-inline: -4px; padding: 14px; font-size: 0.78rem; }
+    }
+
+    @media print {
+      .site-controls { display: none; }
+      body, .page { background: white; color: black; }
+      body { padding: 0; }
+      .page { width: 100%; margin: 0; padding: 0; border: 0; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="site-controls" aria-label="Page controls">
+      <button class="control" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <a class="control" href="https://github.com/shishir-dey/DatasheetXML" target="_blank" rel="noopener noreferrer" aria-label="View DatasheetXML on GitHub" title="View source on GitHub">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.7 7.7 0 0 1 8 3.8c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+      </a>
+    </nav>
+    <article class="markdown-body">
+<div align="center"><h1 id="datasheetxml">DatasheetXML</h1>
+<h3 id="a-vendor-neutral-machine-readable-format-for-electronic-component-datasheets">A Vendor-Neutral, Machine-Readable Format for Electronic Component Datasheets</h3>
+<p><strong>Specification Version 0.3 — Draft</strong></p>
+<p><strong>Author: Shishir Dey</strong></p>
+<p><img src="https://img.shields.io/badge/status-draft-yellow" alt="status">
+<img src="https://img.shields.io/badge/spec-v0.3-blue" alt="version">
+<img src="https://img.shields.io/badge/license-TBD-lightgrey" alt="license"></p>
+</div><aside class="spec-summary">
+<strong>✨ DatasheetXML</strong> is a structured datasheet format where manufacturers
+publish XML as the source. LLMs consume only the compact semantic markup—not
+presentation and styling data—reducing input token usage, while PDF, HTML, and
+Markdown are generated separately for human use.
+</aside><h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#1-introduction">1. Introduction</a></li>
+<li><a href="#2-design-goals">2. Design Goals</a></li>
+<li><a href="#3-design-principles">3. Design Principles</a><ul>
+<li><a href="#31-canonical-source">3.1 Canonical Source</a></li>
+<li><a href="#32-separation-of-content-and-presentation">3.2 Separation of Content and Presentation</a></li>
+<li><a href="#33-semantic-markup">3.3 Semantic Markup</a></li>
+</ul>
+</li>
+<li><a href="#4-root-document">4. Root Document</a><ul>
+<li><a href="#41-reusable-property-values">4.1 Reusable Property Values</a></li>
+</ul>
+</li>
+<li><a href="#5-identification">5. Identification</a></li>
+<li><a href="#6-electrical">6. Electrical</a></li>
+<li><a href="#7-mechanical">7. Mechanical</a></li>
+<li><a href="#8-thermal">8. Thermal</a></li>
+<li><a href="#9-material">9. Material</a></li>
+<li><a href="#10-environmental">10. Environmental</a></li>
+<li><a href="#11-reliability">11. Reliability</a></li>
+<li><a href="#12-regulatory">12. Regulatory</a></li>
+<li><a href="#13-manufacturing">13. Manufacturing</a></li>
+<li><a href="#14-commercial">14. Commercial</a></li>
+<li><a href="#15-packaging">15. Packaging</a></li>
+<li><a href="#16-documentation">16. Documentation</a></li>
+<li><a href="#17-eda-models">17. EDA Models</a></li>
+<li><a href="#18-change-history">18. Change History</a></li>
+<li><a href="#19-cross-references">19. Cross References</a></li>
+<li><a href="#20-validation">20. Validation</a></li>
+<li><a href="#21-rendering">21. Rendering</a></li>
+<li><a href="#22-versioning">22. Versioning</a></li>
+<li><a href="#23-future-work">23. Future Work</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+<hr>
+<h2 id="1-introduction">1. Introduction</h2>
+<p><strong>DatasheetXML</strong> is a vendor-neutral, machine-readable format for describing
+electronic and electromechanical components. It is intended to become the
+canonical source of truth for a component&#39;s technical, manufacturing,
+compliance, commercial, and documentation data.</p>
+<p>Rather than publishing a PDF as the primary artifact, manufacturers publish a
+structured XML document. Human-readable outputs such as PDF, HTML, Markdown,
+and web pages are generated automatically using rendering templates.</p>
+<pre><code class="language-text">datasheet.xml
+        │
+        ├── style-pdf.xsl
+        ├── style-html.xsl
+        ├── style-markdown.xsl
+        └── style-ai.xsl
+
+                ↓
+
+      PDF / HTML / Markdown / AI View
+</code></pre>
+<p>The XML document contains semantic information only. Presentation is handled
+separately.</p>
+<hr>
+<h2 id="2-design-goals">2. Design Goals</h2>
+<p>The specification aims to be:</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Human editable</li>
+<li><input checked="" disabled="" type="checkbox"> Machine readable</li>
+<li><input checked="" disabled="" type="checkbox"> Vendor neutral</li>
+<li><input checked="" disabled="" type="checkbox"> Schema validated</li>
+<li><input checked="" disabled="" type="checkbox"> Version controlled</li>
+<li><input checked="" disabled="" type="checkbox"> Diff friendly</li>
+<li><input checked="" disabled="" type="checkbox"> Suitable for long-term archival</li>
+<li><input checked="" disabled="" type="checkbox"> AI friendly</li>
+<li><input checked="" disabled="" type="checkbox"> Automatically renderable</li>
+</ul>
+<hr>
+<h2 id="3-design-principles">3. Design Principles</h2>
+<h3 id="31-canonical-source">3.1 Canonical Source</h3>
+<p>Every piece of information exists only once. Renderers and downstream tools
+derive their output from the same structured value.</p>
+<pre><code class="language-xml">&lt;voltageRating&gt;
+    &lt;minValue&gt;2.7&lt;/minValue&gt;
+    &lt;typValue&gt;3.3&lt;/typValue&gt;
+    &lt;maxValue&gt;3.6&lt;/maxValue&gt;
+    &lt;unit&gt;V&lt;/unit&gt;
+    &lt;dataType&gt;REAL_MEASURE&lt;/dataType&gt;
+&lt;/voltageRating&gt;
+</code></pre>
+<h3 id="32-separation-of-content-and-presentation">3.2 Separation of Content and Presentation</h3>
+<p>The XML never specifies fonts, colors, page sizes, margins, or table borders.
+Those belong in rendering styles.</p>
+<h3 id="33-semantic-markup">3.3 Semantic Markup</h3>
+<p>Tags represent meaning rather than appearance.</p>
+<pre><code class="language-xml">&lt;maxJunctionTemperature&gt;
+    &lt;value&gt;150&lt;/value&gt;
+    &lt;unit&gt;degC&lt;/unit&gt;
+&lt;/maxJunctionTemperature&gt;
+</code></pre>
+<hr>
+<h2 id="4-root-document">4. Root Document</h2>
+<p>The public validation entry point is <code>schema/datasheet.xsd</code>. A document uses the
+<code>Datasheet</code> root element and places the thirteen component-data sections directly
+inside it in the order shown below.</p>
+<pre><code class="language-xml">&lt;Datasheet
+    xmlns=&quot;https://datasheet.org/schema/v1&quot;
+    version=&quot;1.0&quot;
+    schemaVersion=&quot;0.3&quot;&gt;
+    &lt;identification&gt;
+        &lt;referenceDesignator&gt;R104&lt;/referenceDesignator&gt;
+        &lt;designatorCategory&gt;R&lt;/designatorCategory&gt;
+        &lt;manufacturerPartNumber&gt;RC0402FR-0710KL&lt;/manufacturerPartNumber&gt;
+        &lt;manufacturer&gt;Yageo&lt;/manufacturer&gt;
+    &lt;/identification&gt;
+    &lt;electrical&gt;
+        &lt;resistance&gt;
+            &lt;value&gt;10000&lt;/value&gt;
+            &lt;unit&gt;ohm&lt;/unit&gt;
+            &lt;dataType&gt;REAL_MEASURE&lt;/dataType&gt;
+            &lt;tolerance&gt;+/-1%&lt;/tolerance&gt;
+        &lt;/resistance&gt;
+    &lt;/electrical&gt;
+&lt;/Datasheet&gt;
+</code></pre>
+<p><code>identification</code> is required. All other sections are optional. The <code>version</code>
+attribute identifies the revision of the document itself; <code>schemaVersion</code> is
+required and fixed to <code>0.3</code> by this schema release.</p>
+<h3 id="41-reusable-property-values">4.1 Reusable Property Values</h3>
+<p>Measured and classified data uses a reusable property structure. Every field is
+optional so the document can preserve the information available from its source.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>value</code></td>
+<td>Simple value</td>
+<td>Scalar or textual value</td>
+</tr>
+<tr>
+<td><code>unit</code></td>
+<td>String</td>
+<td>Unit associated with the value</td>
+</tr>
+<tr>
+<td><code>dataType</code></td>
+<td>Controlled string</td>
+<td><code>INTEGER_MEASURE</code>, <code>REAL_MEASURE</code>, <code>STRING</code>, <code>BOOLEAN</code>, <code>ENUM</code>, <code>RANGE</code>, <code>RATIONAL_MEASURE</code>, or <code>INTEGER_COUNT</code></td>
+</tr>
+<tr>
+<td><code>conditionOfApplication</code></td>
+<td>String</td>
+<td>Condition under which the property applies</td>
+</tr>
+<tr>
+<td><code>tolerance</code></td>
+<td>String</td>
+<td>Stated tolerance</td>
+</tr>
+<tr>
+<td><code>minValue</code>, <code>typValue</code>, <code>maxValue</code></td>
+<td>Number</td>
+<td>Numeric range and typical value</td>
+</tr>
+<tr>
+<td><code>definition</code></td>
+<td>String</td>
+<td>Human-readable definition</td>
+</tr>
+<tr>
+<td><code>irdi</code></td>
+<td>String</td>
+<td>IEC identifier in IRDI form</td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td>String</td>
+<td>Origin of the property value</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="5-identification">5. Identification</h2>
+<p><code>identification</code> gives the unique identity and classification of the component
+instance. <code>referenceDesignator</code> and <code>designatorCategory</code> are required.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>referenceDesignator</code></td>
+<td>String</td>
+<td>Must contain a supported category prefix, digits, and an optional letter suffix, such as <code>C104</code>, <code>U3</code>, or <code>RN2</code></td>
+</tr>
+<tr>
+<td><code>designatorCategory</code></td>
+<td>Controlled string</td>
+<td><code>A</code>, <code>AE</code>, <code>BT</code>, <code>C</code>, <code>D</code>, <code>DS</code>, <code>F</code>, <code>FB</code>, <code>FD</code>, <code>FL</code>, <code>H</code>, <code>J</code>, <code>JP</code>, <code>K</code>, <code>L</code>, <code>LS</code>, <code>M</code>, <code>MK</code>, <code>P</code>, <code>Q</code>, <code>R</code>, <code>RN</code>, <code>RT</code>, <code>RV</code>, <code>SW</code>, <code>T</code>, <code>TC</code>, <code>TJ</code>, <code>TP</code>, <code>U</code>, <code>Y</code>, or <code>Z</code></td>
+</tr>
+<tr>
+<td><code>designatorCategoryLabel</code></td>
+<td>String</td>
+<td>Human-readable category label</td>
+</tr>
+<tr>
+<td><code>manufacturerPartNumber</code></td>
+<td>String</td>
+<td>Manufacturer-assigned part number</td>
+</tr>
+<tr>
+<td><code>manufacturer</code></td>
+<td>String</td>
+<td>Manufacturer name</td>
+</tr>
+<tr>
+<td><code>internalPartNumber</code></td>
+<td>String</td>
+<td>Organization-internal part or SKU</td>
+</tr>
+<tr>
+<td><code>genericPartFamily</code></td>
+<td>String</td>
+<td>Component class or plain-text family</td>
+</tr>
+<tr>
+<td><code>irdiClassId</code></td>
+<td>String</td>
+<td>IRDI of the component class</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>String</td>
+<td>Component description</td>
+</tr>
+<tr>
+<td><code>revision</code></td>
+<td>String</td>
+<td>Component revision</td>
+</tr>
+<tr>
+<td><code>alternatePartNumbers</code></td>
+<td>List of strings</td>
+<td>Alternate manufacturer part numbers</td>
+</tr>
+<tr>
+<td><code>eccnClassification</code></td>
+<td>String</td>
+<td>Export-control classification</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="6-electrical">6. Electrical</h2>
+<p><code>electrical</code> contains electrical ratings and characteristics.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>voltageRating</code></td>
+<td>Property</td>
+<td>Rated voltage</td>
+</tr>
+<tr>
+<td><code>currentRating</code></td>
+<td>Property</td>
+<td>Rated current</td>
+</tr>
+<tr>
+<td><code>powerRating</code></td>
+<td>Property</td>
+<td>Rated power</td>
+</tr>
+<tr>
+<td><code>resistance</code></td>
+<td>Property</td>
+<td>Resistance value or range</td>
+</tr>
+<tr>
+<td><code>capacitance</code></td>
+<td>Property</td>
+<td>Capacitance value or range</td>
+</tr>
+<tr>
+<td><code>inductance</code></td>
+<td>Property</td>
+<td>Inductance value or range</td>
+</tr>
+<tr>
+<td><code>impedance</code></td>
+<td>Property</td>
+<td>Impedance value or range</td>
+</tr>
+<tr>
+<td><code>frequencyRange</code></td>
+<td>Property</td>
+<td>Supported frequency range</td>
+</tr>
+<tr>
+<td><code>tolerance</code></td>
+<td>Property</td>
+<td>Electrical tolerance</td>
+</tr>
+<tr>
+<td><code>temperatureCoefficient</code></td>
+<td>Property</td>
+<td>Change in value with temperature</td>
+</tr>
+<tr>
+<td><code>dielectricType</code></td>
+<td>String</td>
+<td>For example, <code>C0G/NP0</code>, <code>X7R</code>, or <code>Y5V</code></td>
+</tr>
+<tr>
+<td><code>polarized</code></td>
+<td>Boolean</td>
+<td>Whether the component is polarized</td>
+</tr>
+<tr>
+<td><code>pinCount</code></td>
+<td>Integer</td>
+<td>Number of component pins</td>
+</tr>
+<tr>
+<td><code>logicFamily</code></td>
+<td>String</td>
+<td>Logic family name</td>
+</tr>
+<tr>
+<td><code>switchingCharacteristics</code></td>
+<td>Property</td>
+<td>Switching behavior or limits</td>
+</tr>
+<tr>
+<td><code>insulationResistance</code></td>
+<td>Property</td>
+<td>Insulation resistance</td>
+</tr>
+<tr>
+<td><code>dielectricWithstandingVoltage</code></td>
+<td>Property</td>
+<td>Dielectric withstand rating</td>
+</tr>
+<tr>
+<td><code>esdRating</code></td>
+<td>Property</td>
+<td>Electrostatic-discharge rating</td>
+</tr>
+<tr>
+<td><code>additionalProperties</code></td>
+<td>List of properties</td>
+<td>Component-specific electrical properties not listed above</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="7-mechanical">7. Mechanical</h2>
+<p><code>mechanical</code> describes physical form, dimensions, and mounting characteristics.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>packageType</code></td>
+<td>String</td>
+<td>For example, <code>0402</code>, <code>SOIC-8</code>, <code>TO-220</code>, or <code>QFN-32</code></td>
+</tr>
+<tr>
+<td><code>footprint</code></td>
+<td>String</td>
+<td>IPC-7351 land-pattern name or reference</td>
+</tr>
+<tr>
+<td><code>dimensions</code></td>
+<td>Object</td>
+<td>Property-valued <code>length</code>, <code>width</code>, <code>height</code>, <code>diameter</code>, and <code>leadPitch</code></td>
+</tr>
+<tr>
+<td><code>mass</code></td>
+<td>Property</td>
+<td>Component mass</td>
+</tr>
+<tr>
+<td><code>mountingType</code></td>
+<td>Controlled string</td>
+<td><code>SMT</code>, <code>THT</code>, <code>Press-fit</code>, <code>Panel-mount</code>, <code>Chassis-mount</code>, <code>Free-standing</code>, or <code>Other</code></td>
+</tr>
+<tr>
+<td><code>terminationStyle</code></td>
+<td>String</td>
+<td>For example, gull-wing, J-lead, BGA ball, axial, or radial</td>
+</tr>
+<tr>
+<td><code>mechanicalTolerance</code></td>
+<td>Property</td>
+<td>Dimensional or mechanical tolerance</td>
+</tr>
+<tr>
+<td><code>connectorGender</code></td>
+<td>Controlled string</td>
+<td><code>Male</code>, <code>Female</code>, or <code>N/A</code></td>
+</tr>
+<tr>
+<td><code>keying</code></td>
+<td>String</td>
+<td>Connector or package keying information</td>
+</tr>
+<tr>
+<td><code>actuationForce</code></td>
+<td>Property</td>
+<td>Actuation force for switches or connectors</td>
+</tr>
+<tr>
+<td><code>vibrationResistance</code></td>
+<td>Property</td>
+<td>Vibration-resistance rating</td>
+</tr>
+<tr>
+<td><code>shockResistance</code></td>
+<td>Property</td>
+<td>Shock-resistance rating</td>
+</tr>
+<tr>
+<td><code>cadModelRef</code></td>
+<td>String</td>
+<td>Pointer to a CAD or STEP model</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="8-thermal">8. Thermal</h2>
+<p><code>thermal</code> records temperature ratings and thermal-transfer characteristics.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>operatingTemperatureRange</code></td>
+<td>Property</td>
+<td>Permitted operating-temperature range</td>
+</tr>
+<tr>
+<td><code>storageTemperatureRange</code></td>
+<td>Property</td>
+<td>Permitted storage-temperature range</td>
+</tr>
+<tr>
+<td><code>thermalResistanceJunctionAmbient</code></td>
+<td>Property</td>
+<td>Junction-to-ambient thermal resistance, Rth(j-a)</td>
+</tr>
+<tr>
+<td><code>thermalResistanceJunctionCase</code></td>
+<td>Property</td>
+<td>Junction-to-case thermal resistance, Rth(j-c)</td>
+</tr>
+<tr>
+<td><code>maxJunctionTemperature</code></td>
+<td>Property</td>
+<td>Maximum junction temperature</td>
+</tr>
+<tr>
+<td><code>derating</code></td>
+<td>Property</td>
+<td>Derating curve or rule</td>
+</tr>
+<tr>
+<td><code>thermalConductivity</code></td>
+<td>Property</td>
+<td>Thermal conductivity</td>
+</tr>
+<tr>
+<td><code>reflowProfileCompatibility</code></td>
+<td>String</td>
+<td>Reference to a J-STD-020 reflow classification or profile</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="9-material">9. Material</h2>
+<p><code>material</code> describes bulk material, plating, finish, and construction.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>bodyMaterial</code></td>
+<td>String</td>
+<td>Component body material</td>
+</tr>
+<tr>
+<td><code>terminationFinish</code></td>
+<td>String</td>
+<td>For example, matte tin, gold, or NiPdAu</td>
+</tr>
+<tr>
+<td><code>substrateMaterial</code></td>
+<td>String</td>
+<td>Substrate material</td>
+</tr>
+<tr>
+<td><code>encapsulantMaterial</code></td>
+<td>String</td>
+<td>Encapsulant material</td>
+</tr>
+<tr>
+<td><code>flammabilityRating</code></td>
+<td>String</td>
+<td>UL 94 classification, such as <code>V-0</code></td>
+</tr>
+<tr>
+<td><code>moistureSensitivityLevel</code></td>
+<td>String</td>
+<td>J-STD-020 MSL rating, such as <code>MSL 3</code></td>
+</tr>
+<tr>
+<td><code>colorFinish</code></td>
+<td>String</td>
+<td>Component color or finish</td>
+</tr>
+<tr>
+<td><code>magneticProperties</code></td>
+<td>String</td>
+<td>Magnetic-material characteristics</td>
+</tr>
+<tr>
+<td><code>materialComposition</code></td>
+<td>List of objects</td>
+<td>Entries containing <code>substance</code>, <code>casNumber</code>, and <code>massFraction</code></td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="10-environmental">10. Environmental</h2>
+<p><code>environmental</code> captures environmental compliance and operating-environment
+tolerance.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>rohsCompliant</code></td>
+<td>Boolean</td>
+<td>RoHS compliance status</td>
+</tr>
+<tr>
+<td><code>rohsVersion</code></td>
+<td>String</td>
+<td>For example, <code>RoHS 3 (EU 2015/863)</code></td>
+</tr>
+<tr>
+<td><code>reachCompliant</code></td>
+<td>Boolean</td>
+<td>REACH compliance status</td>
+</tr>
+<tr>
+<td><code>reachSvhcListDate</code></td>
+<td>Date</td>
+<td>Date of the applicable REACH SVHC list</td>
+</tr>
+<tr>
+<td><code>halogenFree</code></td>
+<td>Boolean</td>
+<td>Halogen-free status</td>
+</tr>
+<tr>
+<td><code>conflictMineralsStatus</code></td>
+<td>Controlled string</td>
+<td><code>DRC Conflict-Free</code>, <code>Not Conflict-Free</code>, or <code>Not Assessed</code></td>
+</tr>
+<tr>
+<td><code>ingressProtectionRating</code></td>
+<td>String</td>
+<td>IP code, such as <code>IP67</code></td>
+</tr>
+<tr>
+<td><code>humidityRating</code></td>
+<td>Property</td>
+<td>Humidity tolerance or rating</td>
+</tr>
+<tr>
+<td><code>altitudeRating</code></td>
+<td>Property</td>
+<td>Altitude tolerance or rating</td>
+</tr>
+<tr>
+<td><code>chemicalResistance</code></td>
+<td>String</td>
+<td>Chemical-resistance description</td>
+</tr>
+<tr>
+<td><code>uvResistance</code></td>
+<td>Boolean</td>
+<td>UV-resistance status</td>
+</tr>
+<tr>
+<td><code>californiaProp65</code></td>
+<td>Boolean</td>
+<td>California Proposition 65 status</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="11-reliability">11. Reliability</h2>
+<p><code>reliability</code> stores lifetime, failure-rate, qualification, and endurance data.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>mtbf</code></td>
+<td>Property</td>
+<td>Mean time between failures</td>
+</tr>
+<tr>
+<td><code>failureRate</code></td>
+<td>Property</td>
+<td>Failure rate, such as FIT per 1 billion device-hours</td>
+</tr>
+<tr>
+<td><code>ratedLifetime</code></td>
+<td>Property</td>
+<td>Rated service lifetime</td>
+</tr>
+<tr>
+<td><code>qualificationStandard</code></td>
+<td>List of strings</td>
+<td>Qualification standards, such as <code>AEC-Q200</code> or <code>MIL-STD-883</code></td>
+</tr>
+<tr>
+<td><code>gradeLevel</code></td>
+<td>String</td>
+<td>For example, Automotive Grade 1, Industrial, Consumer, or Military</td>
+</tr>
+<tr>
+<td><code>burnInTested</code></td>
+<td>Boolean</td>
+<td>Whether burn-in testing was performed</td>
+</tr>
+<tr>
+<td><code>predictedFailureModes</code></td>
+<td>List of strings</td>
+<td>Predicted component failure modes</td>
+</tr>
+<tr>
+<td><code>endurance</code></td>
+<td>Object</td>
+<td>Property-valued <code>cycleCount</code> and a <code>testMethod</code> string</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="12-regulatory">12. Regulatory</h2>
+<p><code>regulatory</code> contains certifications, export-control data, and standards
+references.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>certifications</code></td>
+<td>List of strings</td>
+<td>Certifications such as UL, CE, FCC Part 15, CSA, or CCC</td>
+</tr>
+<tr>
+<td><code>certificateNumbers</code></td>
+<td>List of strings</td>
+<td>Identifiers for applicable certificates</td>
+</tr>
+<tr>
+<td><code>eccn</code></td>
+<td>String</td>
+<td>Export Control Classification Number</td>
+</tr>
+<tr>
+<td><code>htsCode</code></td>
+<td>String</td>
+<td>Harmonized Tariff Schedule code</td>
+</tr>
+<tr>
+<td><code>countryOfOrigin</code></td>
+<td>String</td>
+<td>Manufacturing country of origin</td>
+</tr>
+<tr>
+<td><code>exportLicenseRequired</code></td>
+<td>Boolean</td>
+<td>Whether an export license is required</td>
+</tr>
+<tr>
+<td><code>ituCompliance</code></td>
+<td>String</td>
+<td>ITU compliance information</td>
+</tr>
+<tr>
+<td><code>iecStandardRef</code></td>
+<td>List of strings</td>
+<td>Governing IEC standards, such as <code>IEC 60384-1</code></td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="13-manufacturing">13. Manufacturing</h2>
+<p><code>manufacturing</code> describes process, assembly, and production characteristics.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>assemblyProcess</code></td>
+<td>Controlled string</td>
+<td><code>SMT-Reflow</code>, <code>THT-Wave</code>, <code>THT-Selective</code>, <code>Manual</code>, <code>Press-fit</code>, or <code>Other</code></td>
+</tr>
+<tr>
+<td><code>solderReflowProfile</code></td>
+<td>String</td>
+<td>Solder-reflow profile identifier or description</td>
+</tr>
+<tr>
+<td><code>leadFreeProcessCompatible</code></td>
+<td>Boolean</td>
+<td>Lead-free process compatibility</td>
+</tr>
+<tr>
+<td><code>peakReflowTemperature</code></td>
+<td>Property</td>
+<td>Maximum reflow temperature</td>
+</tr>
+<tr>
+<td><code>solderabilityStandard</code></td>
+<td>String</td>
+<td>Solderability standard, such as <code>J-STD-002</code></td>
+</tr>
+<tr>
+<td><code>placementOrientation</code></td>
+<td>String</td>
+<td>Required component placement orientation</td>
+</tr>
+<tr>
+<td><code>testCoverage</code></td>
+<td>String</td>
+<td>For example, AOI plus ICT or 100% functional test</td>
+</tr>
+<tr>
+<td><code>yieldRate</code></td>
+<td>Property</td>
+<td>Manufacturing yield rate</td>
+</tr>
+<tr>
+<td><code>processCapabilityIndex</code></td>
+<td>Property</td>
+<td>Process capability index, Cpk</td>
+</tr>
+<tr>
+<td><code>traceabilityMethod</code></td>
+<td>String</td>
+<td>For example, lot-code marking or date code plus serial number</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="14-commercial">14. Commercial</h2>
+<p><code>commercial</code> stores sourcing, pricing, and lifecycle data.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>lifecycleStatus</code></td>
+<td>Controlled string</td>
+<td><code>Active</code>, <code>NRND</code>, <code>EOL</code>, <code>Obsolete</code>, <code>Preview</code>, or <code>Unknown</code></td>
+</tr>
+<tr>
+<td><code>lastTimeBuyDate</code></td>
+<td>Date</td>
+<td>Last date on which the component may be ordered</td>
+</tr>
+<tr>
+<td><code>endOfLifeDate</code></td>
+<td>Date</td>
+<td>Component end-of-life date</td>
+</tr>
+<tr>
+<td><code>leadTimeWeeks</code></td>
+<td>Number</td>
+<td>Procurement lead time in weeks</td>
+</tr>
+<tr>
+<td><code>minimumOrderQuantity</code></td>
+<td>Integer</td>
+<td>Minimum order quantity</td>
+</tr>
+<tr>
+<td><code>standardPackQuantity</code></td>
+<td>Integer</td>
+<td>Standard pack quantity</td>
+</tr>
+<tr>
+<td><code>priceBreaks</code></td>
+<td>List of objects</td>
+<td>Entries containing integer <code>quantity</code>, numeric <code>unitPrice</code>, and string <code>currency</code></td>
+</tr>
+<tr>
+<td><code>distributors</code></td>
+<td>List of objects</td>
+<td>Entries containing <code>name</code>, <code>sku</code>, <code>stockQuantity</code>, and <code>url</code></td>
+</tr>
+<tr>
+<td><code>alternateSources</code></td>
+<td>List of strings</td>
+<td>Cross-reference or second-source part numbers</td>
+</tr>
+<tr>
+<td><code>obsolescenceRiskScore</code></td>
+<td>Number</td>
+<td>Computed component-obsolescence risk score</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="15-packaging">15. Packaging</h2>
+<p><code>packaging</code> describes shipping and handling packaging, distinct from the
+component body described by <code>mechanical</code>.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>packingMethod</code></td>
+<td>Controlled string</td>
+<td><code>Tape and Reel</code>, <code>Tube</code>, <code>Tray</code>, <code>Bulk</code>, <code>Cut Tape</code>, or <code>Bag</code></td>
+</tr>
+<tr>
+<td><code>reelSize</code></td>
+<td>String</td>
+<td>For example, <code>7in</code> or <code>13in</code></td>
+</tr>
+<tr>
+<td><code>quantityPerReel</code></td>
+<td>Integer</td>
+<td>Number of components per reel</td>
+</tr>
+<tr>
+<td><code>tapeWidth</code></td>
+<td>Property</td>
+<td>Carrier-tape width</td>
+</tr>
+<tr>
+<td><code>tapePitch</code></td>
+<td>Property</td>
+<td>Carrier-tape pitch</td>
+</tr>
+<tr>
+<td><code>orientation</code></td>
+<td>String</td>
+<td>Pin-1 or component orientation in carrier tape per EIA-481</td>
+</tr>
+<tr>
+<td><code>dryPackRequired</code></td>
+<td>Boolean</td>
+<td>Whether dry packaging is required</td>
+</tr>
+<tr>
+<td><code>packagingMaterial</code></td>
+<td>String</td>
+<td>Packaging material</td>
+</tr>
+<tr>
+<td><code>labelingStandard</code></td>
+<td>String</td>
+<td>For example, <code>IPC-1782</code> or <code>ANSI MH10.8.2</code></td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="16-documentation">16. Documentation</h2>
+<p><code>documentation</code> describes supporting documents using a controlled document type.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>documents</code></td>
+<td>List of objects</td>
+<td>Each entry contains required <code>documentType</code> and <code>url</code> fields, with optional <code>title</code>, <code>documentNumber</code>, <code>revision</code>, and <code>date</code></td>
+</tr>
+<tr>
+<td><code>complianceCertificates</code></td>
+<td>List of URIs</td>
+<td>Compliance-certificate locations</td>
+</tr>
+<tr>
+<td><code>revisionHistory</code></td>
+<td>List of objects</td>
+<td>Entries containing <code>revision</code>, <code>date</code>, and <code>notes</code></td>
+</tr>
+</tbody></table></div>
+<p>Supported <code>documentType</code> values are:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Document type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Application Note</code></td>
+<td>Practical guidance for applying or integrating the component</td>
+</tr>
+<tr>
+<td><code>Technical Note</code></td>
+<td>Focused technical information or implementation details</td>
+</tr>
+<tr>
+<td><code>Errata</code></td>
+<td>Known defects, limitations, and corrections</td>
+</tr>
+<tr>
+<td><code>PCN</code></td>
+<td>Product Change Notice</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="17-eda-models">17. EDA Models</h2>
+<p><code>edaModels</code> provides direct links to machine-readable engineering assets.
+Each field accepts one or more URIs and is optional, including <code>svd</code> when it does
+not apply to the component.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>bsdl</code></td>
+<td>List of URIs</td>
+<td>Boundary-Scan Description Language models</td>
+</tr>
+<tr>
+<td><code>ibis</code></td>
+<td>List of URIs</td>
+<td>I/O Buffer Information Specification models</td>
+</tr>
+<tr>
+<td><code>spice</code></td>
+<td>List of URIs</td>
+<td>SPICE simulation models</td>
+</tr>
+<tr>
+<td><code>svd</code></td>
+<td>List of URIs</td>
+<td>System View Description files, when applicable</td>
+</tr>
+<tr>
+<td><code>symbol</code></td>
+<td>List of URIs</td>
+<td>Schematic symbol files</td>
+</tr>
+<tr>
+<td><code>footprint</code></td>
+<td>List of URIs</td>
+<td>PCB footprint or land-pattern files</td>
+</tr>
+<tr>
+<td><code>threeDModel</code></td>
+<td>List of URIs</td>
+<td>3D component models</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="18-change-history">18. Change History</h2>
+<p>Document changes are recorded in <code>documentation/revisionHistory</code>.</p>
+<pre><code class="language-xml">&lt;documentation&gt;
+    &lt;revisionHistory&gt;
+        &lt;entry&gt;
+            &lt;revision&gt;1.1&lt;/revision&gt;
+            &lt;date&gt;2026-08-13&lt;/date&gt;
+            &lt;notes&gt;Updated the resistance tolerance.&lt;/notes&gt;
+        &lt;/entry&gt;
+    &lt;/revisionHistory&gt;
+&lt;/documentation&gt;
+</code></pre>
+<hr>
+<h2 id="19-cross-references">19. Cross References</h2>
+<p>Cross references are represented by the fields closest to their meaning:</p>
+<ul>
+<li>IEC class identifiers use <code>identification/irdiClassId</code>.</li>
+<li>CAD model references use <code>mechanical/cadModelRef</code>; downloadable 3D models use
+<code>edaModels/threeDModel</code>.</li>
+<li>Certifications and IEC standards use <code>regulatory</code>.</li>
+<li>Application notes, technical notes, errata, PCNs, and certificates use
+<code>documentation</code>.</li>
+<li>Simulation models, device descriptions, symbols, footprints, and 3D models use
+<code>edaModels</code>.</li>
+</ul>
+<hr>
+<h2 id="20-validation">20. Validation</h2>
+<p>Every document must validate against <code>schema/datasheet.xsd</code>. The schema checks:</p>
+<ul>
+<li>the required root attributes and identification fields;</li>
+<li>element names, ordering, and value types;</li>
+<li>reference-designator syntax;</li>
+<li>controlled values for categories, processes, statuses, and formats;</li>
+<li>dates and URIs; and</li>
+<li>the numeric types used by property ranges and commercial data.</li>
+</ul>
+<p>Example using an XML Schema validator:</p>
+<pre><code class="language-sh">xmllint --noout --schema schema/datasheet.xsd datasheet.xml
+</code></pre>
+<hr>
+<h2 id="21-rendering">21. Rendering</h2>
+<p>Rendering is performed by stylesheet engines. Possible outputs include PDF,
+HTML, EPUB, Markdown, DOCX, plain text, and AI-optimized views.</p>
+<blockquote>
+<p><strong>Rule:</strong> No information may exist only in one rendered output.</p>
+</blockquote>
+<hr>
+<h2 id="22-versioning">22. Versioning</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Major</strong></td>
+<td>Incompatible schema changes</td>
+</tr>
+<tr>
+<td><strong>Minor</strong></td>
+<td>Additive elements</td>
+</tr>
+<tr>
+<td><strong>Patch</strong></td>
+<td>Corrections only</td>
+</tr>
+</tbody></table></div>
+<p>The current specification version is <strong>0.3</strong>.</p>
+<hr>
+<h2 id="23-future-work">23. Future Work</h2>
+<p>Future versions may define:</p>
+<ul>
+<li><input disabled="" type="checkbox"> Digital signatures</li>
+<li><input disabled="" type="checkbox"> Localization support</li>
+<li><input disabled="" type="checkbox"> Constraint language for design rules</li>
+<li><input disabled="" type="checkbox"> Component relationship graphs</li>
+<li><input disabled="" type="checkbox"> Semantic identifiers for specifications</li>
+</ul>
+<hr>
+<h2 id="license">License</h2>
+<p>License terms for this specification have not yet been finalized. A permissive
+license such as CC BY 4.0 or Apache 2.0 is proposed to encourage manufacturer and
+tooling adoption.</p>
+
+    </article>
+  </main>
+
+  <script>
+    const root = document.documentElement;
+    const toggle = document.getElementById("theme-toggle");
+    const themeColor = document.getElementById("theme-color-meta");
+
+    const authorName = [...document.querySelectorAll('.markdown-body > div[align="center"] strong')]
+      .find((element) => element.textContent.trim() === "Author: Shishir Dey");
+
+    if (authorName) {
+      authorName.parentElement.classList.add("author-line");
+      authorName.insertAdjacentHTML(
+        "afterend",
+        `<span class="author-links" aria-label="Shishir Dey contact links">
+          <a class="author-link" href="mailto:shishirdey241097@gmail.com" aria-label="Email Shishir Dey" title="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          </a>
+          <a class="author-link" href="https://www.linkedin.com/in/shishir-dey/" target="_blank" rel="noopener noreferrer" aria-label="Shishir Dey on LinkedIn" title="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.41v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.04H3.54V8.98H7.1v11.47Z"/></svg>
+          </a>
+          <a class="author-link" href="https://github.com/shishir-dey" target="_blank" rel="noopener noreferrer" aria-label="Shishir Dey on GitHub" title="GitHub">
+            <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.7 7.7 0 0 1 8 3.8c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+          </a>
+        </span>`,
+      );
+    }
+
+    function syncThemeColor() {
+      themeColor.setAttribute("content", getComputedStyle(root).getPropertyValue("--bg-base").trim());
+      const targetTheme = root.dataset.theme === "dark" ? "light" : "dark";
+      const label = `Switch to ${targetTheme} theme`;
+      toggle.setAttribute("aria-label", label);
+      toggle.setAttribute("title", label);
+    }
+
+    toggle.addEventListener("click", () => {
+      const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = nextTheme;
+      syncThemeColor();
+    });
+
+    syncThemeColor();
+  </script>
+</body>
+</html>
