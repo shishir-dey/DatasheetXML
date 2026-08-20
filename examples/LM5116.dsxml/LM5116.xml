@@ -1,0 +1,795 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Datasheet xmlns="https://datasheet.org/schema/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="https://datasheet.org/schema/v1 datasheet.xsd"
+           version="1.0"
+           schemaVersion="0.3">
+
+  <identification>
+    <referenceDesignator>U1</referenceDesignator>
+    <designatorCategory>U</designatorCategory>
+    <designatorCategoryLabel>Integrated Circuit</designatorCategoryLabel>
+    <manufacturerPartNumber>LM5116</manufacturerPartNumber>
+    <manufacturer>Texas Instruments</manufacturer>
+    <internalPartNumber></internalPartNumber>
+    <genericPartFamily>Synchronous Buck Controller</genericPartFamily>
+    <irdiClassId></irdiClassId>
+    <description>LM5116 Wide Range Synchronous Buck Controller</description>
+    <revision>SNVS499I - Revised November 2023</revision>
+    <alternatePartNumbers>
+      <partNumber>LM5116MH/NOPB</partNumber>
+      <partNumber>LM5116MH/NOPB.A</partNumber>
+      <partNumber>LM5116MH/NOPB.B</partNumber>
+      <partNumber>LM5116MHX/NOPB</partNumber>
+      <partNumber>LM5116MHX/NOPB.A</partNumber>
+      <partNumber>LM5116MHX/NOPB.B</partNumber>
+    </alternatePartNumbers>
+    <eccnClassification></eccnClassification>
+  </identification>
+
+  <electrical>
+    <voltageRating>
+      <value></value>
+      <unit>V</unit>
+      <dataType>RANGE</dataType>
+      <conditionOfApplication>VIN recommended operating range</conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue>6</minValue>
+      <typValue></typValue>
+      <maxValue>100</maxValue>
+      <definition>VIN operating supply voltage range</definition>
+      <irdi></irdi>
+      <source>Section 5.3 Recommended Operating Conditions</source>
+    </voltageRating>
+    <currentRating>
+      <value></value>
+      <unit>A</unit>
+      <dataType>REAL_MEASURE</dataType>
+      <conditionOfApplication>VLO = VCC (peak LO sink current)</conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue>3.5</typValue>
+      <maxValue></maxValue>
+      <definition>Peak LO gate driver sink current</definition>
+      <irdi></irdi>
+      <source>Section 5.5 Electrical Characteristics</source>
+    </currentRating>
+    <powerRating>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </powerRating>
+    <resistance>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </resistance>
+    <capacitance>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </capacitance>
+    <inductance>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </inductance>
+    <impedance>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </impedance>
+    <frequencyRange>
+      <value></value>
+      <unit>kHz</unit>
+      <dataType>RANGE</dataType>
+      <conditionOfApplication>RT/SYNC pin programmable oscillator frequency</conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue>50</minValue>
+      <typValue></typValue>
+      <maxValue>1000</maxValue>
+      <definition>Programmable switching operating frequency range</definition>
+      <irdi></irdi>
+      <source>Section 1 Features / 6.1 Overview</source>
+    </frequencyRange>
+    <tolerance>
+      <value></value>
+      <unit>%</unit>
+      <dataType>REAL_MEASURE</dataType>
+      <conditionOfApplication>FB reference voltage</conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue>1.5</typValue>
+      <maxValue></maxValue>
+      <definition>Precision voltage reference tolerance</definition>
+      <irdi></irdi>
+      <source>Section 1 Features</source>
+    </tolerance>
+    <temperatureCoefficient>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </temperatureCoefficient>
+    <dielectricType></dielectricType>
+    <polarized></polarized>
+    <pinCount>20</pinCount>
+    <logicFamily></logicFamily>
+    <switchingCharacteristics>
+      <value></value>
+      <unit>ns</unit>
+      <dataType>REAL_MEASURE</dataType>
+      <conditionOfApplication>C-load = 0</conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue>75</typValue>
+      <maxValue></maxValue>
+      <definition>LO Fall to HO Rise Delay</definition>
+      <irdi></irdi>
+      <source>Section 5.6 Switching Characteristics</source>
+    </switchingCharacteristics>
+    <insulationResistance>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </insulationResistance>
+    <dielectricWithstandingVoltage>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </dielectricWithstandingVoltage>
+    <esdRating>
+      <value></value>
+      <unit>V</unit>
+      <dataType>RANGE</dataType>
+      <conditionOfApplication>Human-Body Model (HBM), per ANSI/ESDA/JEDEC JS-001</conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue>-2000</minValue>
+      <typValue></typValue>
+      <maxValue>2000</maxValue>
+      <definition>Electrostatic discharge rating, HBM (2 kV all pins except VIN at 1.5 kV); CDM ±750 V per JESD22-C101</definition>
+      <irdi></irdi>
+      <source>Section 5.2 ESD Ratings</source>
+    </esdRating>
+    <additionalProperties>
+      <property>
+        <value></value>
+        <unit>V</unit>
+        <dataType>REAL_MEASURE</dataType>
+        <conditionOfApplication>VIN to GND absolute maximum</conditionOfApplication>
+        <tolerance></tolerance>
+        <minValue>-0.3</minValue>
+        <typValue></typValue>
+        <maxValue>100</maxValue>
+        <definition>VIN absolute maximum rating</definition>
+        <irdi></irdi>
+        <source>Section 5.1 Absolute Maximum Ratings</source>
+      </property>
+      <property>
+        <value></value>
+        <unit>V</unit>
+        <dataType>REAL_MEASURE</dataType>
+        <conditionOfApplication>Measured at FB pin, FB = COMP</conditionOfApplication>
+        <tolerance></tolerance>
+        <minValue>1.195</minValue>
+        <typValue>1.215</typValue>
+        <maxValue>1.231</maxValue>
+        <definition>FB reference voltage</definition>
+        <irdi></irdi>
+        <source>Section 5.5 Electrical Characteristics</source>
+      </property>
+      <property>
+        <value></value>
+        <unit>µA</unit>
+        <dataType>REAL_MEASURE</dataType>
+        <conditionOfApplication>EN = 0 V, VIN = 48 V</conditionOfApplication>
+        <tolerance></tolerance>
+        <minValue></minValue>
+        <typValue>1</typValue>
+        <maxValue>10</maxValue>
+        <definition>VIN shutdown current (low IQ shutdown)</definition>
+        <irdi></irdi>
+        <source>Section 5.5 Electrical Characteristics</source>
+      </property>
+    </additionalProperties>
+  </electrical>
+
+  <mechanical>
+    <packageType>HTSSOP (PWP), 20-pin, power enhanced with exposed die attach pad</packageType>
+    <footprint>PWP0020A</footprint>
+    <dimensions>
+      <length>
+        <value></value>
+        <unit>mm</unit>
+        <dataType>REAL_MEASURE</dataType>
+        <conditionOfApplication></conditionOfApplication>
+        <tolerance></tolerance>
+        <minValue></minValue>
+        <typValue>6.5</typValue>
+        <maxValue></maxValue>
+        <definition>Package length</definition>
+        <irdi></irdi>
+        <source>Device Information table</source>
+      </length>
+      <width>
+        <value></value>
+        <unit>mm</unit>
+        <dataType>REAL_MEASURE</dataType>
+        <conditionOfApplication></conditionOfApplication>
+        <tolerance></tolerance>
+        <minValue></minValue>
+        <typValue>6.4</typValue>
+        <maxValue></maxValue>
+        <definition>Package width</definition>
+        <irdi></irdi>
+        <source>Device Information table</source>
+      </width>
+      <height>
+        <value></value>
+        <unit></unit>
+        <dataType></dataType>
+        <conditionOfApplication></conditionOfApplication>
+        <tolerance></tolerance>
+        <minValue></minValue>
+        <typValue></typValue>
+        <maxValue></maxValue>
+        <definition></definition>
+        <irdi></irdi>
+        <source></source>
+      </height>
+      <diameter>
+        <value></value>
+        <unit></unit>
+        <dataType></dataType>
+        <conditionOfApplication></conditionOfApplication>
+        <tolerance></tolerance>
+        <minValue></minValue>
+        <typValue></typValue>
+        <maxValue></maxValue>
+        <definition></definition>
+        <irdi></irdi>
+        <source></source>
+      </diameter>
+      <leadPitch>
+        <value></value>
+        <unit></unit>
+        <dataType></dataType>
+        <conditionOfApplication></conditionOfApplication>
+        <tolerance></tolerance>
+        <minValue></minValue>
+        <typValue></typValue>
+        <maxValue></maxValue>
+        <definition></definition>
+        <irdi></irdi>
+        <source></source>
+      </leadPitch>
+    </dimensions>
+    <mass>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </mass>
+    <mountingType>SMT</mountingType>
+    <terminationStyle></terminationStyle>
+    <mechanicalTolerance>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </mechanicalTolerance>
+    <connectorGender>N/A</connectorGender>
+    <keying></keying>
+    <actuationForce>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </actuationForce>
+    <vibrationResistance>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </vibrationResistance>
+    <shockResistance>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </shockResistance>
+    <cadModelRef></cadModelRef>
+  </mechanical>
+
+  <thermal>
+    <operatingTemperatureRange>
+      <value></value>
+      <unit>°C</unit>
+      <dataType>RANGE</dataType>
+      <conditionOfApplication>Junction temperature, recommended operating conditions</conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue>-40</minValue>
+      <typValue></typValue>
+      <maxValue>125</maxValue>
+      <definition>Operating junction temperature range</definition>
+      <irdi></irdi>
+      <source>Section 5.3 Recommended Operating Conditions</source>
+    </operatingTemperatureRange>
+    <storageTemperatureRange>
+      <value></value>
+      <unit>°C</unit>
+      <dataType>RANGE</dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue>-55</minValue>
+      <typValue></typValue>
+      <maxValue>150</maxValue>
+      <definition>Storage temperature range</definition>
+      <irdi></irdi>
+      <source>Section 5.1 Absolute Maximum Ratings</source>
+    </storageTemperatureRange>
+    <thermalResistanceJunctionAmbient>
+      <value></value>
+      <unit>°C/W</unit>
+      <dataType>REAL_MEASURE</dataType>
+      <conditionOfApplication>PWP (HTSSOP), 20 pins</conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue>40.6</typValue>
+      <maxValue></maxValue>
+      <definition>Junction-to-ambient thermal resistance (RθJA)</definition>
+      <irdi></irdi>
+      <source>Section 5.4 Thermal Information</source>
+    </thermalResistanceJunctionAmbient>
+    <thermalResistanceJunctionCase>
+      <value></value>
+      <unit>°C/W</unit>
+      <dataType>REAL_MEASURE</dataType>
+      <conditionOfApplication>Junction-to-case (top)</conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue>20.9</typValue>
+      <maxValue></maxValue>
+      <definition>Junction-to-case (top) thermal resistance (RθJC(top)); RθJC(bot) = 1.7 °C/W</definition>
+      <irdi></irdi>
+      <source>Section 5.4 Thermal Information</source>
+    </thermalResistanceJunctionCase>
+    <maxJunctionTemperature>
+      <value></value>
+      <unit>°C</unit>
+      <dataType>REAL_MEASURE</dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue>150</maxValue>
+      <definition>Maximum junction temperature</definition>
+      <irdi></irdi>
+      <source>Section 5.1 Absolute Maximum Ratings</source>
+    </maxJunctionTemperature>
+    <derating>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </derating>
+    <thermalConductivity>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </thermalConductivity>
+    <reflowProfileCompatibility>Level-1-260C-UNLIM</reflowProfileCompatibility>
+  </thermal>
+
+  <material>
+    <bodyMaterial></bodyMaterial>
+    <terminationFinish>Sn (matte tin)</terminationFinish>
+    <substrateMaterial></substrateMaterial>
+    <encapsulantMaterial></encapsulantMaterial>
+    <flammabilityRating></flammabilityRating>
+    <moistureSensitivityLevel>Level-1-260C-UNLIM</moistureSensitivityLevel>
+    <colorFinish></colorFinish>
+    <magneticProperties></magneticProperties>
+    <materialComposition>
+      <substance>
+        <substance></substance>
+        <casNumber></casNumber>
+        <massFraction></massFraction>
+      </substance>
+    </materialComposition>
+  </material>
+
+  <environmental>
+    <rohsCompliant>true</rohsCompliant>
+    <rohsVersion></rohsVersion>
+    <reachCompliant></reachCompliant>
+    <reachSvhcListDate></reachSvhcListDate>
+    <halogenFree></halogenFree>
+    <conflictMineralsStatus>Not Assessed</conflictMineralsStatus>
+    <ingressProtectionRating></ingressProtectionRating>
+    <humidityRating>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </humidityRating>
+    <altitudeRating>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </altitudeRating>
+    <chemicalResistance></chemicalResistance>
+    <uvResistance></uvResistance>
+    <californiaProp65></californiaProp65>
+  </environmental>
+
+  <reliability>
+    <mtbf>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </mtbf>
+    <failureRate>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </failureRate>
+    <ratedLifetime>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </ratedLifetime>
+    <qualificationStandard>
+      <standard>ANSI/ESDA/JEDEC JS-001 (HBM)</standard>
+      <standard>JEDEC JESD22-C101 (CDM)</standard>
+    </qualificationStandard>
+    <gradeLevel></gradeLevel>
+    <burnInTested></burnInTested>
+    <predictedFailureModes>
+      <mode></mode>
+    </predictedFailureModes>
+    <endurance>
+      <cycleCount>
+        <value></value>
+        <unit></unit>
+        <dataType></dataType>
+        <conditionOfApplication></conditionOfApplication>
+        <tolerance></tolerance>
+        <minValue></minValue>
+        <typValue></typValue>
+        <maxValue></maxValue>
+        <definition></definition>
+        <irdi></irdi>
+        <source></source>
+      </cycleCount>
+      <testMethod></testMethod>
+    </endurance>
+  </reliability>
+
+  <regulatory>
+    <certifications>
+      <certification></certification>
+    </certifications>
+    <certificateNumbers>
+      <certificateNumber></certificateNumber>
+    </certificateNumbers>
+    <eccn></eccn>
+    <htsCode></htsCode>
+    <countryOfOrigin></countryOfOrigin>
+    <exportLicenseRequired></exportLicenseRequired>
+    <ituCompliance></ituCompliance>
+    <iecStandardRef>
+      <standard>IEC (ESD test references per JEDEC JS-001 / JESD22-C101)</standard>
+    </iecStandardRef>
+  </regulatory>
+
+  <manufacturing>
+    <assemblyProcess>SMT-Reflow</assemblyProcess>
+    <solderReflowProfile></solderReflowProfile>
+    <leadFreeProcessCompatible>true</leadFreeProcessCompatible>
+    <peakReflowTemperature>
+      <value></value>
+      <unit>°C</unit>
+      <dataType>REAL_MEASURE</dataType>
+      <conditionOfApplication>Level-1-260C-UNLIM MSL rating</conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue>260</typValue>
+      <maxValue></maxValue>
+      <definition>Peak reflow temperature</definition>
+      <irdi></irdi>
+      <source>Package Option Addendum</source>
+    </peakReflowTemperature>
+    <solderabilityStandard></solderabilityStandard>
+    <placementOrientation>Q1</placementOrientation>
+    <testCoverage></testCoverage>
+    <yieldRate>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </yieldRate>
+    <processCapabilityIndex>
+      <value></value>
+      <unit></unit>
+      <dataType></dataType>
+      <conditionOfApplication></conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue></typValue>
+      <maxValue></maxValue>
+      <definition></definition>
+      <irdi></irdi>
+      <source></source>
+    </processCapabilityIndex>
+    <traceabilityMethod></traceabilityMethod>
+  </manufacturing>
+
+  <commercial>
+    <lifecycleStatus>Active</lifecycleStatus>
+    <lastTimeBuyDate></lastTimeBuyDate>
+    <endOfLifeDate></endOfLifeDate>
+    <leadTimeWeeks></leadTimeWeeks>
+    <minimumOrderQuantity></minimumOrderQuantity>
+    <standardPackQuantity>2500</standardPackQuantity>
+    <priceBreaks>
+      <priceBreak>
+        <quantity></quantity>
+        <unitPrice></unitPrice>
+        <currency></currency>
+      </priceBreak>
+    </priceBreaks>
+    <distributors>
+      <distributor>
+        <name></name>
+        <sku></sku>
+        <stockQuantity></stockQuantity>
+        <url></url>
+      </distributor>
+    </distributors>
+    <alternateSources>
+      <partNumber>LM5148</partNumber>
+      <partNumber>LM5149</partNumber>
+    </alternateSources>
+    <obsolescenceRiskScore></obsolescenceRiskScore>
+  </commercial>
+
+  <packaging>
+    <packingMethod>Tape and Reel</packingMethod>
+    <reelSize>330 mm</reelSize>
+    <quantityPerReel>2500</quantityPerReel>
+    <tapeWidth>
+      <value></value>
+      <unit>mm</unit>
+      <dataType>REAL_MEASURE</dataType>
+      <conditionOfApplication>LM5116MHX/NOPB tape and reel</conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue>16.0</typValue>
+      <maxValue></maxValue>
+      <definition>Carrier tape width (W)</definition>
+      <irdi></irdi>
+      <source>Package Materials Information - Tape and Reel Information</source>
+    </tapeWidth>
+    <tapePitch>
+      <value></value>
+      <unit>mm</unit>
+      <dataType>REAL_MEASURE</dataType>
+      <conditionOfApplication>LM5116MHX/NOPB tape and reel</conditionOfApplication>
+      <tolerance></tolerance>
+      <minValue></minValue>
+      <typValue>8.0</typValue>
+      <maxValue></maxValue>
+      <definition>Pitch between successive cavity centers (P1)</definition>
+      <irdi></irdi>
+      <source>Package Materials Information - Tape and Reel Information</source>
+    </tapePitch>
+    <orientation>Q1 (Pin 1 Quadrant)</orientation>
+    <dryPackRequired>false</dryPackRequired>
+    <packagingMaterial></packagingMaterial>
+    <labelingStandard></labelingStandard>
+  </packaging>
+
+  <documentation>
+    <documents>
+      <document>
+        <documentType>Errata</documentType>
+        <title></title>
+        <documentNumber></documentNumber>
+        <revision></revision>
+        <date></date>
+        <url></url>
+      </document>
+    </documents>
+    <complianceCertificates>
+      <url></url>
+    </complianceCertificates>
+    <revisionHistory>
+      <entry>
+        <revision>I</revision>
+        <date></date>
+        <notes>Added new, similar product introduction in Features section; updated numbering format for tables, figures, and cross-references throughout the document; added new, similar product introduction in Description section; changed from BODY SIZE to PACKAGE SIZE and added a table note in the Package Information table (November 2023)</notes>
+      </entry>
+      <entry>
+        <revision>H</revision>
+        <date></date>
+        <notes>Added ESD Ratings table, Feature Description section, Device Functional Modes, Application and Implementation section, Power Supply Recommendations section, Layout section, Device and Documentation Support section, and Mechanical, Packaging, and Orderable Information section (July 2015)</notes>
+      </entry>
+      <entry>
+        <revision>G</revision>
+        <date></date>
+        <notes>Changed layout of National Data Sheet to TI format (March 2013)</notes>
+      </entry>
+    </revisionHistory>
+  </documentation>
+
+  <edaModels>
+    <bsdl></bsdl>
+    <ibis></ibis>
+    <spice></spice>
+    <svd></svd>
+    <symbol></symbol>
+    <footprint></footprint>
+    <threeDModel></threeDModel>
+  </edaModels>
+
+</Datasheet>
