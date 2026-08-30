@@ -8,8 +8,11 @@
   <meta name="description" content="DatasheetXML is a vendor-neutral, machine-readable XML standard for electronic component datasheets, covering identification, electrical, mechanical, thermal, environmental, commercial, and other component specifications.">
   <meta name="keywords" content="DatasheetXML, electronic components, component datasheet, XML schema, XSD, CDD, IEC 61360, EDA, PLM, machine-readable datasheet, resistor, capacitor, integrated circuit">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="theme-color" id="theme-color-meta" content="#f3e4c5">
+  <meta name="theme-color" id="theme-color-meta" content="#FAFAFA">
   <link rel="canonical" href="{{SITE_URL}}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="{{SITE_URL}}favicon-96x96.png" sizes="96x96">
   <link rel="icon" type="image/svg+xml" href="{{SITE_URL}}favicon.svg">
   <link rel="shortcut icon" href="{{SITE_URL}}favicon.ico">
@@ -54,18 +57,11 @@
   <style>
     :root {
       color-scheme: light;
-      --bg-base: #f3e4c5;
-      --page-bg:
-        radial-gradient(
-          circle at 18% 10%,
-          rgba(255, 248, 228, 0.82) 0%,
-          rgba(215, 161, 72, 0.2) 34%,
-          transparent 56%
-        ),
-        linear-gradient(155deg, #fbf7ef 0%, #f3e4c5 44%, #f1eadc 68%, #ffffff 100%);
-      --surface: #fffefa;
-      --surface-raised: #f7f0e3;
-      --border: rgba(142, 92, 35, 0.16);
+      --bg-base: #FAFAFA;
+      --page-bg: none;
+      --surface: #ffffff;
+      --surface-raised: #f4f6f8;
+      --border: rgba(71, 85, 105, 0.16);
       --text: #0f172a;
       --muted: #334155;
       --accent: #2563eb;
@@ -73,33 +69,26 @@
       --highlight: #2563eb;
       --highlight-soft: rgba(37, 99, 235, 0.14);
       --highlight-shadow: rgba(37, 99, 235, 0.08);
-      --code: #f4ecdc;
-      --shadow: 0 8px 20px rgba(92, 57, 16, 0.08);
+      --code: #f1f3f5;
+      --shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
     }
 
     [data-theme="dark"] {
       color-scheme: dark;
-      --bg-base: #254666;
-      --page-bg:
-        radial-gradient(
-          circle at 86% 14%,
-          rgba(215, 230, 247, 0.44) 0%,
-          rgba(137, 176, 214, 0.24) 30%,
-          transparent 54%
-        ),
-        linear-gradient(155deg, #172c45 0%, #254666 44%, #345f82 76%, #172c45 100%);
-      --surface: #243a52;
-      --surface-raised: #2b465f;
-      --border: rgba(215, 230, 247, 0.18);
-      --text: #e2e8f0;
-      --muted: #cbd5e1;
+      --bg-base: #202124;
+      --page-bg: none;
+      --surface: #292a2d;
+      --surface-raised: #333438;
+      --border: rgba(255, 255, 255, 0.14);
+      --text: #f1f3f4;
+      --muted: #bdc1c6;
       --accent: #60a5fa;
       --accent-soft: rgba(96, 165, 250, 0.16);
-      --highlight: #c99a4d;
-      --highlight-soft: rgba(201, 154, 77, 0.16);
-      --highlight-shadow: rgba(201, 154, 77, 0.12);
-      --code: #20364d;
-      --shadow: 0 8px 20px rgba(6, 16, 31, 0.34);
+      --highlight: #2563eb;
+      --highlight-soft: rgba(37, 99, 235, 0.14);
+      --highlight-shadow: rgba(37, 99, 235, 0.08);
+      --code: #303134;
+      --shadow: 0 8px 20px rgba(0, 0, 0, 0.34);
     }
 
     * { box-sizing: border-box; }
@@ -117,7 +106,7 @@
       padding: 48px 18px;
       background: transparent;
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      font-family: "IBM Plex Serif", Georgia, "Times New Roman", serif;
       font-size: 15.5px;
       line-height: 1.62;
       letter-spacing: -0.004em;
@@ -157,7 +146,10 @@
       background: var(--surface-raised);
       border: 1px solid var(--border);
       border-radius: 10px;
-      font: 600 0.86rem/1 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      font-family: inherit;
+      font-size: 0.86rem;
+      font-weight: 600;
+      line-height: 1;
       text-decoration: none;
       cursor: pointer;
       transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
@@ -311,7 +303,7 @@
     tbody tr:hover { background: var(--accent-soft); }
 
     code, pre {
-      font-family: "SFMono-Regular", "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-family: "IBM Plex Mono", "SF Mono", "Menlo", "Monaco", "Courier New", monospace;
     }
 
     code {
