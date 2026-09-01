@@ -1,25 +1,26 @@
 <!doctype html>
 <html lang="en" data-theme="light">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DatasheetXML — Machine-Readable Electronic Component Datasheets</title>
   <meta name="author" content="Shishir Dey">
-  <meta name="description" content="DatasheetXML is a vendor-neutral, machine-readable XML standard for electronic component datasheets, covering identification, electrical, mechanical, thermal, environmental, commercial, and other component specifications.">
-  <meta name="keywords" content="DatasheetXML, electronic components, component datasheet, XML schema, XSD, CDD, IEC 61360, EDA, PLM, machine-readable datasheet, resistor, capacitor, integrated circuit">
+  <meta name="description"
+    content="DatasheetXML is a vendor-neutral, machine-readable XML standard for electronic component datasheets, covering identification, electrical, mechanical, thermal, environmental, commercial, and other component specifications.">
+  <meta name="keywords"
+    content="DatasheetXML, electronic components, component datasheet, XML schema, XSD, CDD, IEC 61360, EDA, PLM, machine-readable datasheet, resistor, capacitor, integrated circuit">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="theme-color" id="theme-color-meta" content="#FAFAFA">
+  <meta name="theme-color" id="theme-color-meta" content="#e5e7eb">
   <link rel="canonical" href="{{SITE_URL}}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="{{SITE_URL}}favicon-96x96.png" sizes="96x96">
   <link rel="icon" type="image/svg+xml" href="{{SITE_URL}}favicon.svg">
   <link rel="shortcut icon" href="{{SITE_URL}}favicon.ico">
   <link rel="apple-touch-icon" href="{{SITE_URL}}apple-touch-icon.png" sizes="180x180">
 
   <meta property="og:title" content="DatasheetXML — Electronic Component Datasheet Standard">
-  <meta property="og:description" content="A vendor-neutral, schema-validated and machine-readable format for datasheets covering any electronic component.">
+  <meta property="og:description"
+    content="A vendor-neutral, schema-validated and machine-readable format for datasheets covering any electronic component.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="{{SITE_URL}}">
   <meta property="og:site_name" content="DatasheetXML">
@@ -33,7 +34,8 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="DatasheetXML — Electronic Component Datasheet Standard">
-  <meta name="twitter:description" content="A vendor-neutral, schema-validated and machine-readable format for electronic component datasheets.">
+  <meta name="twitter:description"
+    content="A vendor-neutral, schema-validated and machine-readable format for electronic component datasheets.">
   <meta name="twitter:image" content="{{SITE_URL}}dsxml.png">
   <meta name="twitter:image:alt" content="DatasheetXML wordmark">
 
@@ -57,7 +59,7 @@
   <style>
     :root {
       color-scheme: light;
-      --bg-base: #FAFAFA;
+      --bg-base: #e5e7eb;
       --page-bg: none;
       --surface: #ffffff;
       --surface-raised: #f4f6f8;
@@ -91,7 +93,9 @@
       --shadow: 0 8px 20px rgba(0, 0, 0, 0.34);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html {
       scroll-behavior: smooth;
@@ -103,21 +107,144 @@
     body {
       margin: 0;
       min-height: 100vh;
-      padding: 48px 18px;
+      padding: 24px 10px;
       background: transparent;
       color: var(--text);
-      font-family: "IBM Plex Serif", Georgia, "Times New Roman", serif;
-      font-size: 15.5px;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      font-size: 14px;
       line-height: 1.62;
       letter-spacing: -0.004em;
       -webkit-font-smoothing: antialiased;
       transition: background-color 0.25s ease, color 0.25s ease;
     }
 
+    body.toc-scroll-locked {
+      overflow: hidden;
+    }
+
+    .site-shell {
+      display: grid;
+      width: min(1260px, 100%);
+      margin: 0 auto;
+      grid-template-columns: minmax(240px, 280px) minmax(0, 960px);
+      gap: 20px;
+      align-items: start;
+      justify-content: center;
+    }
+
+    .toc-panel {
+      position: sticky;
+      top: 24px;
+      display: flex;
+      width: 100%;
+      min-width: 0;
+      max-height: calc(100vh - 48px);
+      overflow: hidden;
+      flex-direction: column;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .toc-panel-header {
+      display: flex;
+      padding: 14px 14px 12px 18px;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc-panel .toc-title {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 0.92rem;
+      letter-spacing: 0.01em;
+    }
+
+    .toc-navigation {
+      padding: 10px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+
+    .toc-navigation ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .toc-navigation ul ul {
+      margin: 3px 0 6px 12px;
+      padding-left: 8px;
+      border-left: 1px solid var(--border);
+    }
+
+    .toc-navigation li+li {
+      margin-top: 2px;
+    }
+
+    .toc-navigation a {
+      display: block;
+      padding: 6px 8px;
+      color: var(--muted);
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 500;
+      line-height: 1.35;
+      text-decoration: none;
+      transition: color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .toc-navigation ul ul a {
+      font-size: 0.8rem;
+    }
+
+    .toc-navigation a:hover,
+    .toc-navigation a:focus-visible,
+    .toc-navigation a[aria-current="location"] {
+      color: var(--accent);
+      background: var(--accent-soft);
+      outline: none;
+      text-decoration: none;
+    }
+
+    .toc-backdrop {
+      display: none;
+    }
+
+    .control.toc-edge-toggle {
+      display: none;
+      width: 30px;
+      min-width: 30px;
+      height: 54px;
+      padding: 0;
+      border-radius: 0 10px 10px 0;
+    }
+
+    .toc-edge-toggle svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .toc-arrow-right {
+      display: none;
+    }
+
+    html[data-toc-open="false"] .toc-arrow-left {
+      display: none;
+    }
+
+    html[data-toc-open="false"] .toc-arrow-right {
+      display: block;
+    }
+
     .page {
       position: relative;
-      width: min(960px, 100%);
-      margin: 0 auto;
+      width: 100%;
+      margin: 0;
       padding: 44px;
       overflow: hidden;
       background: var(--surface);
@@ -164,20 +291,87 @@
       text-decoration: none;
     }
 
-    .control svg { width: 17px; height: 17px; }
+    .control svg {
+      width: 17px;
+      height: 17px;
+    }
 
-    .theme-icon-sun { display: none; }
-    [data-theme="dark"] .theme-icon-moon { display: none; }
-    [data-theme="dark"] .theme-icon-sun { display: block; }
+    .theme-icon-sun {
+      display: none;
+    }
 
-    .markdown-body > div[align="center"] {
+    [data-theme="dark"] .theme-icon-moon {
+      display: none;
+    }
+
+    [data-theme="dark"] .theme-icon-sun {
+      display: block;
+    }
+
+    .document-section[hidden] {
+      display: none;
+    }
+
+    .page-navigation {
+      display: flex;
+      margin-top: 34px;
+      padding-top: 22px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .page-navigation-button {
+      display: inline-flex;
+      min-width: 96px;
+      height: 36px;
+      padding: 0 12px;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      color: var(--muted);
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      font: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .page-navigation-button:hover:not(:disabled),
+    .page-navigation-button:focus-visible {
+      color: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+      outline: none;
+    }
+
+    .page-navigation-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+
+    .page-status {
+      color: var(--muted);
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+
+    .page-status strong {
+      color: var(--text);
+    }
+
+    .markdown-body>div[align="center"] {
       margin-bottom: 28px;
       padding-bottom: 28px;
     }
 
-    .markdown-body > div[align="center"] h3,
-    .markdown-body > div[align="center"] h3 strong,
-    .markdown-body > div[align="center"] p strong {
+    .markdown-body>div[align="center"] h3,
+    .markdown-body>div[align="center"] h3 strong,
+    .markdown-body>div[align="center"] p strong {
       font-weight: 400;
     }
 
@@ -188,7 +382,7 @@
       gap: 9px;
     }
 
-    .markdown-body > div[align="center"] .author-line strong {
+    .markdown-body>div[align="center"] .author-line strong {
       font-weight: 700;
     }
 
@@ -249,9 +443,17 @@
       text-decoration: none;
     }
 
-    .author-link svg { width: 15px; height: 15px; }
+    .author-link svg {
+      width: 15px;
+      height: 15px;
+    }
 
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       color: var(--text);
       font-weight: 700;
       line-height: 1.25;
@@ -259,15 +461,47 @@
       scroll-margin-top: 20px;
     }
 
-    h1 { margin: 0.2em 0 0.35em; font-size: clamp(2rem, 6vw, 2.7rem); }
-    h2 { margin: 2em 0 0.9em; padding-bottom: 0.48em; border-bottom: 1px solid var(--border); font-size: 1.62rem; }
-    h3 { margin: 1.55em 0 0.7em; font-size: 1.22rem; }
-    h4 { margin: 1.4em 0 0.6em; font-size: 1.05rem; }
+    h1 {
+      margin: 0.2em 0 0.35em;
+      font-size: clamp(2rem, 6vw, 2.7rem);
+    }
 
-    p, li { color: var(--muted); }
-    strong { color: var(--text); }
-    hr { margin: 32px 0; border: 0; border-top: 1px solid var(--border); }
-    img { max-width: 100%; height: auto; }
+    h2 {
+      margin: 2em 0 0.9em;
+      padding-bottom: 0.48em;
+      border-bottom: 1px solid var(--border);
+      font-size: 1.62rem;
+    }
+
+    h3 {
+      margin: 1.55em 0 0.7em;
+      font-size: 1.22rem;
+    }
+
+    h4 {
+      margin: 1.4em 0 0.6em;
+      font-size: 1.05rem;
+    }
+
+    p,
+    li {
+      color: var(--muted);
+    }
+
+    strong {
+      color: var(--text);
+    }
+
+    hr {
+      margin: 32px 0;
+      border: 0;
+      border-top: 1px solid var(--border);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
 
     a {
       color: var(--accent);
@@ -275,7 +509,9 @@
       text-underline-offset: 3px;
     }
 
-    a:hover { text-decoration-thickness: 2px; }
+    a:hover {
+      text-decoration-thickness: 2px;
+    }
 
     blockquote {
       margin: 20px 0;
@@ -285,9 +521,18 @@
       border-radius: 0 10px 10px 0;
     }
 
-    ul, ol { padding-left: 1.45rem; }
-    li + li { margin-top: 0.28rem; }
-    input[type="checkbox"] { accent-color: var(--accent); }
+    ul,
+    ol {
+      padding-left: 1.45rem;
+    }
+
+    li+li {
+      margin-top: 0.28rem;
+    }
+
+    input[type="checkbox"] {
+      accent-color: var(--accent);
+    }
 
     .table-wrapper {
       margin: 20px 0;
@@ -296,14 +541,39 @@
       border-radius: 14px;
     }
 
-    table { width: 100%; border-collapse: collapse; background: var(--surface-raised); }
-    th, td { padding: 12px 14px; color: var(--muted); text-align: left; border-bottom: 1px solid var(--border); }
-    th { color: var(--text); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
-    tr:last-child td { border-bottom: 0; }
-    tbody tr:hover { background: var(--accent-soft); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface-raised);
+    }
 
-    code, pre {
-      font-family: "IBM Plex Mono", "SF Mono", "Menlo", "Monaco", "Courier New", monospace;
+    th,
+    td {
+      padding: 12px 14px;
+      color: var(--muted);
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tbody tr:hover {
+      background: var(--accent-soft);
+    }
+
+    code,
+    pre {
+      font-family: "SFMono-Regular", "SF Mono", Menlo, Monaco, Consolas, monospace;
     }
 
     code {
@@ -326,49 +596,388 @@
       line-height: 1.55;
     }
 
-    pre code { padding: 0; background: transparent; font-size: inherit; }
+    pre code {
+      padding: 0;
+      background: transparent;
+      font-size: inherit;
+    }
 
-    ::selection { background: var(--accent-soft); }
+    ::selection {
+      background: var(--accent-soft);
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 20px 14px;
+      }
+
+      .site-shell {
+        display: block;
+        width: min(960px, 100%);
+      }
+
+      .toc-panel,
+      html[data-toc-open="false"] .toc-panel {
+        position: fixed;
+        z-index: 30;
+        inset: 0 auto 0 0;
+        display: flex;
+        width: min(320px, calc(100vw - 32px));
+        height: 100vh;
+        height: 100dvh;
+        max-height: none;
+        border-width: 0 1px 0 0;
+        border-radius: 0 18px 18px 0;
+        visibility: hidden;
+        transform: translateX(-105%);
+        transition: transform 0.24s ease, visibility 0.24s ease;
+      }
+
+      .toc-panel-header {
+        padding-top: max(14px, env(safe-area-inset-top));
+      }
+
+      .toc-navigation {
+        padding-bottom: max(10px, env(safe-area-inset-bottom));
+      }
+
+      html[data-toc-open="true"] .toc-panel {
+        visibility: visible;
+        transform: translateX(0);
+      }
+
+      .toc-backdrop {
+        position: fixed;
+        z-index: 20;
+        inset: 0;
+        display: block;
+        visibility: hidden;
+        background: rgba(15, 23, 42, 0.42);
+        opacity: 0;
+        transition: opacity 0.24s ease, visibility 0.24s ease;
+      }
+
+      html[data-toc-open="true"] .toc-backdrop {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .control.toc-edge-toggle,
+      html[data-toc-open="false"] .toc-edge-toggle {
+        position: fixed;
+        z-index: 40;
+        top: 96px;
+        left: 0;
+        display: inline-flex;
+        border-left: 0;
+        border-radius: 0 10px 10px 0;
+        transform: none;
+        transition:
+          left 0.24s ease,
+          transform 0.24s ease,
+          border-color 0.2s ease,
+          color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      html[data-toc-open="true"] .toc-edge-toggle {
+        left: min(320px, calc(100vw - 32px));
+        border-right: 0;
+        border-left: 1px solid var(--border);
+        border-radius: 10px 0 0 10px;
+        transform: translateX(-100%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .toc-panel,
+      .toc-backdrop,
+      .toc-edge-toggle {
+        transition: none;
+      }
+    }
 
     @media (max-width: 700px) {
-      body { padding: 16px 12px; }
-      .page { width: 100%; padding: 20px 16px 24px; border-radius: 16px; }
-      .site-controls { margin-bottom: 12px; }
-      .spec-summary { margin: 20px 0 26px; padding: 15px 16px 15px 20px; font-size: 0.9rem; }
-      h2 { font-size: 1.35rem; }
-      h3 { font-size: 1.08rem; }
-      th, td { padding: 10px; font-size: 0.88rem; }
-      pre { margin-inline: -4px; padding: 14px; font-size: 0.78rem; }
+      body {
+        padding: 16px 12px;
+      }
+
+      .page {
+        width: 100%;
+        padding: 20px 16px 24px;
+        border-radius: 16px;
+      }
+
+      .site-controls {
+        margin-bottom: 12px;
+      }
+
+      .spec-summary {
+        margin: 20px 0 26px;
+        padding: 15px 16px 15px 20px;
+        font-size: 0.9rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+      }
+
+      h3 {
+        font-size: 1.08rem;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        font-size: 0.88rem;
+      }
+
+      pre {
+        margin-inline: -4px;
+        padding: 14px;
+        font-size: 0.78rem;
+      }
+
+      .page-navigation {
+        margin-top: 28px;
+        padding-top: 18px;
+        gap: 8px;
+      }
+
+      .page-navigation-button {
+        min-width: 78px;
+        height: 34px;
+        padding-inline: 10px;
+      }
     }
 
     @media print {
-      .site-controls { display: none; }
-      body, .page { background: white; color: black; }
-      body { padding: 0; }
-      .page { width: 100%; margin: 0; padding: 0; border: 0; box-shadow: none; }
+
+      .toc-panel,
+      .toc-backdrop,
+      .toc-edge-toggle,
+      .site-controls,
+      .page-navigation {
+        display: none !important;
+      }
+
+      .document-section[hidden] {
+        display: block !important;
+      }
+
+      .site-shell {
+        display: block;
+        width: 100%;
+      }
+
+      body,
+      .page {
+        background: white;
+        color: black;
+      }
+
+      body {
+        padding: 0;
+      }
+
+      .page {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        box-shadow: none;
+      }
     }
   </style>
 </head>
+
 <body>
-  <main class="page">
-    <nav class="site-controls" aria-label="Page controls">
-      <button class="control" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">
-        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
-        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>
-      </button>
-      <a class="control" href="{{REPOSITORY_URL}}" target="_blank" rel="noopener noreferrer" aria-label="View DatasheetXML on GitHub" title="View source on GitHub">
-        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.7 7.7 0 0 1 8 3.8c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-      </a>
-    </nav>
-    <article class="markdown-body">
-{{CONTENT}}
-    </article>
-  </main>
+  <div class="site-shell">
+    <aside class="toc-panel" id="toc-panel" aria-labelledby="table-of-contents">
+      <div class="toc-panel-header">
+        <h2 class="toc-title" id="table-of-contents">Table of Contents</h2>
+      </div>
+      <nav class="toc-navigation" aria-label="Specification sections">
+        {{TABLE_OF_CONTENTS}}
+      </nav>
+    </aside>
+    <div class="toc-backdrop" id="toc-backdrop" aria-hidden="true"></div>
+    <button class="control toc-edge-toggle" id="toc-toggle" type="button" aria-expanded="false"
+      aria-controls="toc-panel" aria-label="Open table of contents" title="Open table of contents">
+      <svg class="toc-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="m15 18-6-6 6-6" />
+      </svg>
+      <svg class="toc-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="m9 18 6-6-6-6" />
+      </svg>
+    </button>
+
+    <main class="page">
+      <nav class="site-controls" aria-label="Page controls">
+        <button class="control" id="theme-toggle" type="button" aria-label="Switch to dark theme"
+          title="Switch to dark theme">
+          <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+          </svg>
+          <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41" />
+          </svg>
+        </button>
+        <a class="control" href="{{REPOSITORY_URL}}" target="_blank" rel="noopener noreferrer"
+          aria-label="View DatasheetXML on GitHub" title="View source on GitHub">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.7 7.7 0 0 1 8 3.8c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+          </svg>
+        </a>
+      </nav>
+      <article class="markdown-body">
+        {{CONTENT}}
+      </article>
+      <nav class="page-navigation" id="page-navigation" aria-label="Specification pages">
+        {{PAGE_NAVIGATION}}
+      </nav>
+    </main>
+  </div>
 
   <script>
     const root = document.documentElement;
-    const toggle = document.getElementById("theme-toggle");
+    const themeToggle = document.getElementById("theme-toggle");
     const themeColor = document.getElementById("theme-color-meta");
+    const tocToggle = document.getElementById("toc-toggle");
+    const tocPanel = document.getElementById("toc-panel");
+    const tocBackdrop = document.getElementById("toc-backdrop");
+    const tocNavigation = tocPanel.querySelector(".toc-navigation");
+    const page = document.querySelector(".page");
+    const mobileTocLayout = window.matchMedia("(max-width: 900px)");
+
+    function setTocOpen(open, returnFocus = false) {
+      const tocOpen = mobileTocLayout.matches ? open : true;
+      root.dataset.tocOpen = String(tocOpen);
+      tocToggle.setAttribute("aria-expanded", String(tocOpen));
+      tocToggle.setAttribute("aria-label", tocOpen ? "Collapse table of contents" : "Open table of contents");
+      tocToggle.setAttribute("title", tocOpen ? "Collapse table of contents" : "Open table of contents");
+      tocPanel.setAttribute("aria-hidden", String(!tocOpen));
+      tocPanel.inert = !tocOpen;
+      page.inert = mobileTocLayout.matches && tocOpen;
+      document.body.classList.toggle("toc-scroll-locked", mobileTocLayout.matches && tocOpen);
+
+      if (returnFocus) tocToggle.focus();
+    }
+
+    tocToggle.addEventListener("click", () => {
+      const open = root.dataset.tocOpen !== "true";
+      setTocOpen(open);
+      if (open && mobileTocLayout.matches) tocNavigation.querySelector("a")?.focus();
+    });
+
+    const documentSections = [...document.querySelectorAll(".document-section")];
+    const previousPageButton = document.querySelector('[data-page-action="previous"]');
+    const nextPageButton = document.querySelector('[data-page-action="next"]');
+    const currentPageLabel = document.getElementById("current-page");
+    const tocLinks = [...tocNavigation.querySelectorAll('a[href^="#"]')];
+    let currentSectionIndex = 0;
+
+    function sectionIndexForTarget(targetId) {
+      const target = document.getElementById(targetId);
+      const section = target?.closest(".document-section");
+      return section ? documentSections.indexOf(section) : -1;
+    }
+
+    function showSection(index, { targetId, updateHistory = false, scroll = false } = {}) {
+      const safeIndex = Math.min(Math.max(index, 0), documentSections.length - 1);
+      const activeSection = documentSections[safeIndex];
+      const sectionHeading = activeSection.querySelector("h2");
+      const destinationId = targetId && sectionIndexForTarget(targetId) === safeIndex
+        ? targetId
+        : sectionHeading.id;
+      currentSectionIndex = safeIndex;
+
+      documentSections.forEach((section, sectionIndex) => {
+        section.hidden = sectionIndex !== safeIndex;
+      });
+
+      currentPageLabel.textContent = String(safeIndex + 1);
+      previousPageButton.disabled = safeIndex === 0;
+      nextPageButton.disabled = safeIndex === documentSections.length - 1;
+
+      tocLinks.forEach((link) => {
+        const linkTarget = decodeURIComponent(link.hash.slice(1));
+        if (linkTarget === destinationId) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      });
+
+      const destinationHash = `#${destinationId}`;
+      if (updateHistory && location.hash !== destinationHash) history.pushState(null, "", destinationHash);
+      if (scroll) {
+        const behavior = matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+        document.getElementById(destinationId).scrollIntoView({ behavior, block: "start" });
+      }
+    }
+
+    tocBackdrop.addEventListener("click", () => setTocOpen(false, true));
+    tocNavigation.addEventListener("click", (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link) return;
+
+      const targetId = decodeURIComponent(link.hash.slice(1));
+      const sectionIndex = sectionIndexForTarget(targetId);
+      if (sectionIndex === -1) return;
+
+      event.preventDefault();
+      if (mobileTocLayout.matches) setTocOpen(false, true);
+      showSection(sectionIndex, { targetId, updateHistory: true, scroll: true });
+    });
+
+    document.getElementById("page-navigation").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-page-action]");
+      if (!button) return;
+
+      const offset = button.dataset.pageAction === "previous" ? -1 : 1;
+      showSection(currentSectionIndex + offset, { updateHistory: true, scroll: true });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && mobileTocLayout.matches && root.dataset.tocOpen === "true") {
+        setTocOpen(false, true);
+      }
+
+      if (event.key === "Tab" && mobileTocLayout.matches && root.dataset.tocOpen === "true") {
+        const focusableElements = [...tocNavigation.querySelectorAll("a"), tocToggle];
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements.at(-1);
+
+        if (event.shiftKey && document.activeElement === firstElement) {
+          event.preventDefault();
+          lastElement.focus();
+        } else if (!event.shiftKey && document.activeElement === lastElement) {
+          event.preventDefault();
+          firstElement.focus();
+        }
+      }
+    });
+
+    mobileTocLayout.addEventListener("change", (event) => setTocOpen(!event.matches));
+    setTocOpen(!mobileTocLayout.matches);
+
+    function showSectionFromHash() {
+      const targetId = decodeURIComponent(location.hash.slice(1));
+      const sectionIndex = sectionIndexForTarget(targetId);
+      showSection(sectionIndex === -1 ? 0 : sectionIndex, {
+        targetId: sectionIndex === -1 ? undefined : targetId,
+        scroll: sectionIndex !== -1,
+      });
+    }
+
+    window.addEventListener("hashchange", showSectionFromHash);
+    showSectionFromHash();
 
     const authorName = [...document.querySelectorAll('.markdown-body > div[align="center"] strong')]
       .find((element) => element.textContent.trim() === "Author: Shishir Dey");
@@ -395,11 +1004,11 @@
       themeColor.setAttribute("content", getComputedStyle(root).getPropertyValue("--bg-base").trim());
       const targetTheme = root.dataset.theme === "dark" ? "light" : "dark";
       const label = `Switch to ${targetTheme} theme`;
-      toggle.setAttribute("aria-label", label);
-      toggle.setAttribute("title", label);
+      themeToggle.setAttribute("aria-label", label);
+      themeToggle.setAttribute("title", label);
     }
 
-    toggle.addEventListener("click", () => {
+    themeToggle.addEventListener("click", () => {
       const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
       root.dataset.theme = nextTheme;
       syncThemeColor();
@@ -408,4 +1017,5 @@
     syncThemeColor();
   </script>
 </body>
+
 </html>

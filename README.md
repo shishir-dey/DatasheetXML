@@ -8,10 +8,6 @@
 
 **Author: Shishir Dey**
 
-![status](https://img.shields.io/badge/status-draft-yellow)
-![version](https://img.shields.io/badge/spec-v0.3-blue)
-![license](https://img.shields.io/badge/license-TBD-lightgrey)
-
 </div>
 
 <aside class="spec-summary">
